@@ -1,0 +1,10 @@
+#ifdef _MSC_VER
+#pragma once
+#endif
+
+#ifndef SMFE_TEST_CONFIG_H__
+#define SMFE_TEST_CONFIG_H__
+
+const char* ROOT = "@ROOT@";
+
+#endif
