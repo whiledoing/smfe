@@ -185,6 +185,16 @@ index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int mi
     return result;
 }
 
+template<typename ContainterType>
+value_t three_axis_amplitude(const ContainterType& c)
+{
+	CHECK_VALUE_TYPE(c);
+
+	BOOST_ASSERT_MSG(c.size() == 3, "only support 3d vector data");
+
+	return sqrt(c[0]*c[0] + c[1]*c[1] + c[2]*c[2]);
+}
+
 } // namespace smfe
 
 #endif // TIME_DOMAIN_FEATURES_HPP__

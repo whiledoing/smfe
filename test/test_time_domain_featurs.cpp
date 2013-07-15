@@ -151,3 +151,30 @@ BOOST_AUTO_TEST_CASE(test_effective_duration)
     BOOST_REQUIRE_EQUAL(result[1].first, effecitive_one.size() + 1);
     BOOST_REQUIRE_EQUAL(result[1].second, effecitive_one.size() + 7);
 }
+
+BOOST_AUTO_TEST_CASE(test_three_axis_amplitude)
+{
+    double d[]  = {1,2,3};
+    double d2[] = {4,5,6};
+    double d3[] = {7,8,9};
+
+	vec data = make_vec(d, 3);
+	vec data2 = make_vec(d2, 3);
+	vec data3 = make_vec(d3, 3);
+
+    value_t r[] = {sqrt(14), sqrt(77), sqrt(194)};
+	vec res = make_vec(r, 3);
+
+	BOOST_REQUIRE_CLOSE_FRACTION(three_axis_amplitude(data), res[0], error);
+	BOOST_REQUIRE_CLOSE_FRACTION(three_axis_amplitude(data2), res[1], error);
+	BOOST_REQUIRE_CLOSE_FRACTION(three_axis_amplitude(data3), res[2], error);
+
+	mat m;
+	m.insert_cols(m.n_cols, data);
+	m.insert_cols(m.n_cols, data2);
+	m.insert_cols(m.n_cols, data3);
+
+	auto three_vec = three_axis_amplitude(m);
+	for(int i = 0; i < 3; ++i)
+		BOOST_REQUIRE_CLOSE_FRACTION(three_vec[i], res[i], error);
+}

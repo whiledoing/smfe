@@ -105,6 +105,10 @@ index_vec zero_crossing_index(const ContainterType& c);
 template<typename ContainterType>
 index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int min_duration_frames = 1,
                                                          double effective_percentage = 0.2);
+template<typename ContainterType>
+inline value_t three_axis_amplitude(const ContainterType& c);
+
+vec three_axis_amplitude(const mat& m);
 
 }
 
