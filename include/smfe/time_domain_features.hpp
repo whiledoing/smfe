@@ -81,13 +81,36 @@ index_vec peak_index(const ContainterType& source)
 		return abs(lhs) > abs(rhs);
 	};
 
-	std::vector<int> res;
+	std::vector<unsigned> res;
 	for(unsigned i = 1u; i < source.size(); ++i) {
 		if(abs_greater(source[i], source[i-1]) && abs_greater(source[i], source[i+1]))
 			res.push_back(i);
 	}
 
-	return index_vec(res);
+	return index_vec(std::move(res));
+}
+
+template<typename ContainterType>
+index_vec zero_crossing_index(const ContainterType& c)
+{
+	BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
+
+	BOOST_ASSERT(c.size() > 0);
+
+    value_t left_value = c[0];
+    value_t right_value = 0.0;
+
+	std::vector<unsigned> result;
+    for(unsigned i = 1u; i < c.size(); ++i) {
+		right_value = c[i];
+
+        if(left_value * right_value <= 0.0) 
+            result.push_back(i);
+
+		left_value = right_value;
+    }
+
+    return index_vec(std::move(result));
 }
 
 }

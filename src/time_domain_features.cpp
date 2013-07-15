@@ -22,6 +22,7 @@ INSTIATE(kurtosis);
 INSTIATE(quartile_deviation);
 INSTIATE(mean_absolute_deviation);
 INSTIATE_R(peak_index, index_vec);
+INSTIATE_R(zero_crossing_index, index_vec);
 
 INSTIATE_TWO_PARA(cross_correlation_coefficient);
 }

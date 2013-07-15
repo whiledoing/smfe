@@ -68,6 +68,19 @@ value_t mean_absolute_deviation(const ContainterType& source);
 template<typename ContainterType>
 index_vec peak_index(const ContainterType& source);
 
+/**
+ * Get all the zero-crossing values in the container c
+ * 
+ * zero-crossing value is the value where data just change from positive to 
+ * negative or negative to positive
+ * 
+ * @tparam Container Type
+ * @result zero-crossing index in data collection
+ */
+template<typename ContainterType>
+index_vec zero_crossing_index(const ContainterType& c);
+
+
 }
 
 #endif // TIME_DOMAIN_FEATURES_H__

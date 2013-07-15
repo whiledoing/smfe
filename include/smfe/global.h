@@ -34,7 +34,7 @@ namespace smfe
 	typedef arma::Col<complex_t> cx_vec;
 	typedef arma::Mat<complex_t> cx_mat;
 
-	typedef arma::Col<int> index_vec;
+	typedef arma::Col<unsigned int> index_vec;
 
     inline vec make_vec(const value_t* beg, int length)
     {
