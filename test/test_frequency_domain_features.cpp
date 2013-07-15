@@ -46,8 +46,10 @@ BOOST_AUTO_TEST_CASE(test_fft)
 	// check frequency_magnitue array is equal
     BOOST_CHECK_EQUAL_COLLECTIONS(aquila_fm.begin(), aquila_fm.end(), fm.begin(), fm.end());
 
-    cout << median_frequency(fm) << endl;
-    cout << principal_frequency(fm) << endl;
-    cout << frequency_energy(fm) << endl;
-    cout << frequency_entropy(fm) << endl;
+	const static value_t error = 1e-6;
+
+	BOOST_REQUIRE_CLOSE_FRACTION(median_frequency(fm), 1000, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(principal_frequency(fm), 125, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(frequency_energy(fm), 1091.14, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(frequency_entropy(fm), 0.27711335, error);
 }

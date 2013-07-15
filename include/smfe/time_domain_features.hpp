@@ -56,7 +56,20 @@ template<typename ContainterType>
 value_t cross_correlation_coefficient(const ContainterType& lhs, const ContainterType& rhs)
 {
     BOOST_ASSERT(lhs.size() == rhs.size());
-    return vec(arma::cor(make_vec(lhs), make_vec(rhs), 1)).at(0);
+	auto data = make_vec(lhs);
+    return vec(arma::cor(make_vec(lhs), make_vec(rhs))).at(0);
+}
+
+template<typename ContainterType>
+value_t mean_absolute_deviation(const ContainterType& source)
+{
+	value_t m = mean(source);
+
+	value_t sum = 0.0;
+	for(auto ite = source.begin(); ite != source.end(); ++ite)
+		sum += abs(*ite - m);
+
+	return sum / source.size();
 }
 
 }

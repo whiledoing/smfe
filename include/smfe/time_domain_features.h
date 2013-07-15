@@ -6,6 +6,7 @@
 #define TIME_DOMAIN_FEATURES_H__
 
 #include "global.h"
+#include "common_function.h"
 
 namespace smfe
 {
@@ -46,6 +47,9 @@ namespace smfe
 
     template<typename ContainterType>
     value_t cross_correlation_coefficient(const ContainterType& lhs, const ContainterType& rhs);
+
+    template<typename ContainterType>
+    value_t mean_absolute_deviation(const ContainterType& source);
 }
 
 #endif // TIME_DOMAIN_FEATURES_H__

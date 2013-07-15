@@ -14,7 +14,6 @@
 
 namespace smfe
 {
-    using arma::mean;
     using arma::median;
 
     using arma::var;
@@ -24,6 +23,12 @@ namespace smfe
 	using arma::max;
 
 	using arma::cor;
+
+    template<typename ContainterType>
+    inline value_t mean(ContainterType& source)
+    {
+		return arma::mean(make_vec(source));
+	}
 
     template<typename ContainterType>
     value_t get_nth_elem(ContainterType& source, int nth)
