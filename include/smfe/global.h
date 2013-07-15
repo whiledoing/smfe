@@ -16,6 +16,10 @@
 #endif
 
 #include <complex>
+#include <vector>
+
+#include <boost/assert.hpp>
+
 #include <armadillo>
 
 namespace smfe
@@ -29,6 +33,43 @@ namespace smfe
 
 	typedef arma::Col<complex_t> cx_vec;
 	typedef arma::Mat<complex_t> cx_mat;
+
+    template<typename T>
+    inline arma::Col<T> make_vec(const T* beg, int length)
+    {
+		BOOST_ASSERT(length >= 0);
+		return arma::Col<T>(beg, length);
+	}
+
+    template<typename T>
+    inline arma::Col<T> make_vec(const T* beg, const T* end)
+    {
+		return make_vec(beg, end-beg);
+	}
+
+    template<typename T>
+    inline arma::Col<T> make_vec(const std::vector<T>& source)
+    {
+		return arma::Col<T>(source);
+	}
+
+    template<typename T>
+    inline arma::Col<T> make_vec(std::vector<T>&& source)
+    {
+		return arma::Col<T>(std::move(source));
+	}
+
+    template<typename T>
+    inline const arma::Col<T>& make_vec(const arma::Col<T>& source)
+    {
+        return source;
+    }
+
+    template<typename T>
+    inline arma::Col<T>& make_vec(arma::Col<T>& source)
+    {
+        return source;
+    }
 }
 
 #endif // GLOBAL_H__

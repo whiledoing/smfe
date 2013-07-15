@@ -1,20 +1,21 @@
-#include "smfe/time_domain_features.h"
+#include "smfe/time_domain_features.hpp"
 
-#include <iostream>
-
-#include "aquila/global.h"
-#include "aquila/source/generator/SineGenerator.h"
-#include "aquila/transform/FftFactory.h"
-#include "aquila/tools/TextPlot.h"
+#include <vector>
 
 namespace smfe
 {
+typedef std::vector<value_t> std_vec;
 
-void f()
-{
-    vec data("2 7 4 9 3");
+template value_t skewness<vec>(const vec& source);
+template value_t skewness<std_vec>(const std_vec& source);
 
-    value_t res = skewness(data);
-}
+template value_t kurtosis<vec>(const vec& source);
+template value_t kurtosis<std_vec>(const std_vec& source);
+
+template value_t quartile_deviation<vec>(const vec& source);
+template value_t quartile_deviation<std_vec>(const std_vec& source);
+
+template value_t cross_correlation_coefficient<vec>(const vec& lhs, const vec& rhs);
+template value_t cross_correlation_coefficient<std_vec>(const std_vec& lhs, const std_vec& rhs);
 
 }

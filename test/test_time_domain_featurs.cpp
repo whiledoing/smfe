@@ -1,6 +1,7 @@
 #include <boost/test/unit_test.hpp>
 #include <smfe/global.h>
 #include <smfe/time_domain_features.h>
+#include <smfe/common_function.h>
 
 #include <iostream>
 using namespace std;
@@ -17,6 +18,8 @@ BOOST_AUTO_TEST_CASE(test_time_domain)
 	BOOST_REQUIRE_EQUAL(quartile_deviation(data), 4);
 	BOOST_REQUIRE_EQUAL(first_quater(data), 3);
 	BOOST_REQUIRE_EQUAL(third_quater(data), 7);
+
+
 
     {
         BOOST_REQUIRE_CLOSE_FRACTION(cross_correlation_coefficient(data, data), 1.0, error);

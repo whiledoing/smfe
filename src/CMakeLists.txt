@@ -1,6 +1,6 @@
 set(_target smfe_lib)
 
-file(GLOB_RECURSE _headers ${_smfe_include_dirs}/*.h ${_smfe_include_dirs}/*.cpp)
+file(GLOB_RECURSE _headers ${_smfe_include_dirs}/*.h ${_smfe_include_dirs}/*.hpp)
 file(GLOB_RECURSE _sources *.cpp)
 set(_files ${_headers} ${_sources})
 
