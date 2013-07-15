@@ -72,6 +72,24 @@ value_t mean_absolute_deviation(const ContainterType& source)
 	return sum / source.size();
 }
 
+template<typename ContainterType>
+index_vec peak_index(const ContainterType& source)
+{
+	BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
+
+	static auto abs_greater = [](value_t lhs, value_t rhs) {
+		return abs(lhs) > abs(rhs);
+	};
+
+	std::vector<int> res;
+	for(unsigned i = 1u; i < source.size(); ++i) {
+		if(abs_greater(source[i], source[i-1]) && abs_greater(source[i], source[i+1]))
+			res.push_back(i);
+	}
+
+	return index_vec(res);
+}
+
 }
 #endif // TIME_DOMAIN_FEATURES_HPP__
 
