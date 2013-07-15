@@ -73,6 +73,16 @@ value_t mean_absolute_deviation(const ContainterType& source)
 }
 
 template<typename ContainterType>
+value_t mean_absolute_value(const ContainterType& source)
+{
+    value_t sum = 0.0;
+    for(auto ite = source.begin(); ite != source.end(); ++ite)
+        sum += abs(*ite);
+
+    return sum / source.size();
+}
+
+template<typename ContainterType>
 index_vec peak_index(const ContainterType& source)
 {
 	BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));

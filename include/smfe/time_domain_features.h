@@ -51,6 +51,9 @@ template<typename ContainterType>
 value_t cross_correlation_coefficient(const ContainterType& lhs, const ContainterType& rhs);
 
 template<typename ContainterType>
+value_t mean_absolute_value(const ContainterType& source);
+
+template<typename ContainterType>
 value_t mean_absolute_deviation(const ContainterType& source);
 
 /**
