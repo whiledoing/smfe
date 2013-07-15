@@ -126,3 +126,28 @@ BOOST_AUTO_TEST_CASE(test_cross_correlation)
         BOOST_REQUIRE_CLOSE_FRACTION(cross_correlation_coefficient(make_vec(x, 4), make_vec(y, y+4)), -0.370842, error);
     }
 }
+
+BOOST_AUTO_TEST_CASE(test_effective_duration)
+{
+    using namespace boost::assign;
+
+    std::vector<double> effecitive_one;
+    effecitive_one += 0.0, 0.0, -1.0, 1.0, 1.9, -2.3, 2.5, 2.7, 6.9, -10.0, 
+        7.1, 3.8, 2.3, 1.5, 1.3, 1.2, 1.4, 3.4, 1.5, 1.3, 1.2, 1.4, 0.0; 
+
+    std::vector<double> effecitive_two;
+    effecitive_two += 0.1, 2.3, 2.5, 2.7, 6.9, 7.0, 4.5, 4.6, 0.0, 0.0, 1.0,
+        1.0, 0.0, 0.0;
+
+    std::vector<double> data;
+    data.insert(data.end(), effecitive_one.begin(), effecitive_one.end());
+    data.insert(data.end(), effecitive_two.begin(), effecitive_two.end());
+
+    auto result = effective_duration_index_pair_vec(data, 5);
+
+    BOOST_REQUIRE_EQUAL(result.size(), 2);
+    BOOST_REQUIRE_EQUAL(result[0].first, 5);
+    BOOST_REQUIRE_EQUAL(result[0].second, 17);
+    BOOST_REQUIRE_EQUAL(result[1].first, effecitive_one.size() + 1);
+    BOOST_REQUIRE_EQUAL(result[1].second, effecitive_one.size() + 7);
+}

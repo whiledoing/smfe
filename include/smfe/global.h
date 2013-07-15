@@ -17,6 +17,7 @@
 
 #include <complex>
 #include <vector>
+#include <utility>
 
 #include <boost/assert.hpp>
 
@@ -34,7 +35,11 @@ namespace smfe
 	typedef arma::Col<complex_t> cx_vec;
 	typedef arma::Mat<complex_t> cx_mat;
 
-	typedef arma::Col<unsigned int> index_vec;
+	typedef unsigned int index_t;
+	typedef arma::Col<index_t> index_vec;
+
+	typedef std::pair<index_t, index_t> index_pair_t;
+	typedef std::vector<index_pair_t> index_pair_vec;
 
     inline vec make_vec(const value_t* beg, int length)
     {

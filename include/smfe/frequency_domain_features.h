@@ -18,7 +18,7 @@ namespace smfe
     {
         FrequencyMagnitude(value_t f = 0.0, value_t m = 0.0) : fre(f), mag(m) {}
 		value_t fre;
-		value_t		mag;
+		value_t	mag;
 
 		friend inline bool operator<(const FrequencyMagnitude& lhs, const FrequencyMagnitude& rhs)
         {

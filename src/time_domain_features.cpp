@@ -27,4 +27,9 @@ INSTIATE_R(peak_index, index_vec);
 INSTIATE_R(zero_crossing_index, index_vec);
 
 INSTIATE_TWO_PARA(cross_correlation_coefficient);
+
+template index_pair_vec effective_duration_index_pair_vec(const std_vec& c, 
+				   int min_duration_frames, double effective_percentage);
+template index_pair_vec effective_duration_index_pair_vec(const vec& c, 
+				   int min_duration_frames, double effective_percentage);
 }

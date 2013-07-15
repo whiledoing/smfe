@@ -83,6 +83,28 @@ index_vec peak_index(const ContainterType& source);
 template<typename ContainterType>
 index_vec zero_crossing_index(const ContainterType& c);
 
+/**
+ * Get the efficient signal range 
+ * 
+ * 计算有效的信号区域。
+ * 一个有效的信号区域内的数据都大于一个制定的值幅。
+ * 
+ * 计算过程：
+ *
+ * 1）将数据全部变为绝对值
+ * 2）计算数据的最大值，乘上effective_percentage得到有效信号幅值的最小阈值
+ * 3）有效区域的开始和结尾的数值必须大于最小阈值, 且至少存在min_duration_frames个
+ *	有效帧的时候才判定为进入一个有效区域.
+ * 
+ * @tparam ConType 数据容器类型，要求是容器中保存的是一维数据
+ * @param min_duration_frams 最小的被认为是有效区域的数据长度
+ * @param c 保存数据的容器
+ * @param effective_percentage 被认定有效区域数值和最大数值的比例
+ * @return 保存所有有效运动区域的容器
+ */
+template<typename ContainterType>
+index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int min_duration_frames = 1,
+                                                         double effective_percentage = 0.2);
 
 }
 
