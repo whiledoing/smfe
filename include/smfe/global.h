@@ -34,39 +34,34 @@ namespace smfe
 	typedef arma::Col<complex_t> cx_vec;
 	typedef arma::Mat<complex_t> cx_mat;
 
-    template<typename T>
-    inline arma::Col<T> make_vec(const T* beg, int length)
+    inline vec make_vec(const value_t* beg, int length)
     {
 		BOOST_ASSERT(length >= 0);
-		return arma::Col<T>(beg, length);
+		return vec(beg, length);
 	}
 
-    template<typename T>
-    inline arma::Col<T> make_vec(const T* beg, const T* end)
+    inline vec make_vec(const value_t* beg, const value_t* end)
     {
+		BOOST_ASSERT(end-beg >= 0);
 		return make_vec(beg, end-beg);
 	}
 
-    template<typename T>
-    inline arma::Col<T> make_vec(const std::vector<T>& source)
+    inline vec make_vec(const std::vector<value_t>& source)
     {
-		return arma::Col<T>(source);
+		return vec(source);
 	}
 
-    template<typename T>
-    inline arma::Col<T> make_vec(std::vector<T>&& source)
+    inline vec make_vec(std::vector<value_t>&& source)
     {
-		return arma::Col<T>(std::move(source));
+		return vec(std::move(source));
 	}
 
-    template<typename T>
-    inline const arma::Col<T>& make_vec(const arma::Col<T>& source)
+    inline const vec& make_vec(const vec& source)
     {
         return source;
     }
 
-    template<typename T>
-    inline arma::Col<T>& make_vec(arma::Col<T>& source)
+    inline vec& make_vec(vec& source)
     {
         return source;
     }
