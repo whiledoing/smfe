@@ -14,20 +14,46 @@
 
 namespace smfe
 {
-    using arma::median;
-
-    using arma::var;
-    using arma::stddev;
-
-	using arma::min;
-	using arma::max;
-
-	using arma::cor;
+    template<typename ContainterType>
+    inline value_t sum(ContainterType& source)
+    {
+        return arma::sum(make_vec(source));
+    }
 
     template<typename ContainterType>
     inline value_t mean(ContainterType& source)
     {
 		return arma::mean(make_vec(source));
+	}
+
+    template<typename ContainterType>
+    inline value_t median(ContainterType& source)
+    {
+		return get_nth_elem(ContainterType(source), source.size()/2);
+	}
+	
+    template<typename ContainterType>
+    inline value_t var(ContainterType& source)
+    {
+		return arma::var(make_vec(source));
+	}
+
+    template<typename ContainterType>
+    inline value_t stddev(ContainterType& source)
+    {
+		return arma::stddev(make_vec(source));
+	}
+
+    template<typename ContainterType>
+    inline value_t min(ContainterType& source)
+    {
+		return arma::min(make_vec(source));
+	}
+
+    template<typename ContainterType>
+    inline value_t max(ContainterType& source)
+    {
+		return arma::max(make_vec(source));
 	}
 
     template<typename ContainterType>
