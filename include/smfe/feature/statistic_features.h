@@ -2,8 +2,8 @@
 	#pragma once
 #endif
 
-#ifndef COMMON_FUNCTION_H__
-#define COMMON_FUNCTION_H__
+#ifndef STATISTIC_FEATURES_H__
+#define STATISTIC_FEATURES_H__
 
 #include "../global.h"
 
