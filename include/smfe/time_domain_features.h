@@ -105,10 +105,29 @@ index_vec zero_crossing_index(const ContainterType& c);
 template<typename ContainterType>
 index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int min_duration_frames = 1,
                                                          double effective_percentage = 0.2);
+/**
+ * 得到三轴向量的幅值
+ * 
+ * @input
+ * 1.	3d向量
+ * 2.	包含3d向量的矩阵
+ * 
+ * @return 向量的幅值,或者包含所有向量幅值的向量
+ */
 template<typename ContainterType>
 inline value_t three_axis_amplitude(const ContainterType& c);
-
 vec three_axis_amplitude(const mat& m);
+
+/**
+ * 幅值面积(signal manitude area), 表示信号绝对值与x轴包围面积的大小
+ *
+ * @note 相邻信号之间的距离被设定为单位1
+ *
+ * @param c 包含信号的向量
+ * @return	幅值面积
+ */
+template<typename ContainterType>
+value_t sma(const ContainterType& c);
 
 }
 

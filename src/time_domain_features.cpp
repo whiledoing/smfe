@@ -23,6 +23,7 @@ INSTIATE(quartile_deviation);
 INSTIATE(mean_absolute_deviation);
 INSTIATE(mean_absolute_value);
 INSTIATE(three_axis_amplitude);
+INSTIATE(sma);
 
 INSTIATE_R(peak_index, index_vec);
 INSTIATE_R(zero_crossing_index, index_vec);

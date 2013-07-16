@@ -195,6 +195,20 @@ value_t three_axis_amplitude(const ContainterType& c)
 	return sqrt(c[0]*c[0] + c[1]*c[1] + c[2]*c[2]);
 }
 
+template<typename ContainterType>
+value_t sma(const ContainterType& c)
+{
+	CHECK_VALUE_TYPE(c);
+
+	static const value_t delta_unit = 1.0;
+	value_t res = 0.0;
+	for(size_t i = 0u; i < c.size() - 1; ++i) {
+		res += (abs(c[i]) + abs(c[i+1])) * delta_unit / 2;
+	}
+
+	return res;
+}
+
 } // namespace smfe
 
 #endif // TIME_DOMAIN_FEATURES_HPP__

@@ -11,7 +11,7 @@ using namespace boost::assign;
 
 static const value_t error = 1e-6;
 
-BOOST_AUTO_TEST_CASE(test_time_domain_common)
+BOOST_AUTO_TEST_CASE(test_statistics_feature)
 {
     {
 		value_t d[] = { 2, 7, 4, 9, 3};
@@ -177,4 +177,12 @@ BOOST_AUTO_TEST_CASE(test_three_axis_amplitude)
 	auto three_vec = three_axis_amplitude(m);
 	for(int i = 0; i < 3; ++i)
 		BOOST_REQUIRE_CLOSE_FRACTION(three_vec[i], res[i], error);
+}
+
+BOOST_AUTO_TEST_CASE(test_sma)
+{
+    std::vector<value_t> data;
+    data += -2, -7, 4, -9, 3;
+    BOOST_REQUIRE_CLOSE_FRACTION(sma(data), 22.5, error);
+    BOOST_REQUIRE_CLOSE_FRACTION(sma(make_vec(data)), 22.5, error);
 }
