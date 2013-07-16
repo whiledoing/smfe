@@ -6,7 +6,7 @@
 #define TIME_DOMAIN_FEATURES_HPP__
 
 #include "time_domain_features.h"
-#include "statistic_function.h"
+#include "statistic_features.h"
 #include "integral_calculus.h"
 
 #include <boost/accumulators/framework/accumulator_set.hpp>

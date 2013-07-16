@@ -1,5 +1,5 @@
 #include "smfe/feature/frequency_domain_features.h"
-#include "smfe/feature/statistic_function.h"
+#include "smfe/feature/statistic_features.h"
 
 #include <algorithm>
 #include <functional>

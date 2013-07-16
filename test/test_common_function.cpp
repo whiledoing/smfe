@@ -3,7 +3,7 @@
 #include <boost/assign/std/vector.hpp>
 
 #include <smfe/global.h>
-#include <smfe/feature/statistic_function.h>
+#include <smfe/feature/statistic_features.h>
 
 using namespace smfe;
 

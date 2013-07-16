@@ -3,7 +3,7 @@
 
 #include <smfe/global.h>
 #include <smfe/feature/time_domain_features.h>
-#include <smfe/feature/statistic_function.h>
+#include <smfe/feature/statistic_features.h>
 
 #include <iostream>
 using namespace std;
