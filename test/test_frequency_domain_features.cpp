@@ -9,7 +9,7 @@ BOOST_AUTO_TEST_CASE(test_generate_fm)
 using namespace std;
 
 #include <smfe/time_domain_features.h>
-#include <smfe/common_function.h>
+#include <smfe/statistic_function.h>
 #include <smfe/frequency_domain_features.h>
 using namespace smfe;
 

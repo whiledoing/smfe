@@ -6,7 +6,8 @@
 #define TIME_DOMAIN_FEATURES_HPP__
 
 #include "time_domain_features.h"
-#include "common_function.h"
+#include "statistic_function.h"
+#include "integral_calculus.h"
 
 #include <boost/accumulators/framework/accumulator_set.hpp>
 #include <boost/accumulators/statistics/stats.hpp>
@@ -19,12 +20,6 @@
 
 namespace smfe
 {
-
-template<typename ContainterType>
-void CHECK_VALUE_TYPE(const ContainterType& c)
-{
-    BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
-}
 
 template<typename ContainterType>
 value_t skewness(const ContainterType& source)
@@ -81,11 +76,7 @@ value_t mean_absolute_deviation(const ContainterType& source)
 template<typename ContainterType>
 value_t mean_absolute_value(const ContainterType& source)
 {
-    value_t sum = 0.0;
-    for(auto ite = source.begin(); ite != source.end(); ++ite)
-        sum += abs(*ite);
-
-    return sum / source.size();
+	return mean(make_abs(source));
 }
 
 template<typename ContainterType>
@@ -137,10 +128,7 @@ index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int mi
 
 	CHECK_VALUE_TYPE(c);
 
-    std::vector<value_t> abs_c(c.size());
-    for(int i = 0; i < c.size(); ++i)
-        abs_c[i] = abs(c[i]);
-
+	auto abs_c = make_abs(c);
     auto max_v = max(abs_c);
     auto delta_v = max_v * effective_percentage;
 
@@ -198,15 +186,7 @@ value_t three_axis_amplitude(const ContainterType& c)
 template<typename ContainterType>
 value_t sma(const ContainterType& c)
 {
-	CHECK_VALUE_TYPE(c);
-
-	static const value_t delta_unit = 1.0;
-	value_t res = 0.0;
-	for(size_t i = 0u; i < c.size() - 1; ++i) {
-		res += (abs(c[i]) + abs(c[i+1])) * delta_unit / 2;
-	}
-
-	return res;
+	return integration(make_abs(c));
 }
 
 } // namespace smfe

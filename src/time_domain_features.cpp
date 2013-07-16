@@ -40,14 +40,14 @@ template index_pair_vec effective_duration_index_pair_vec(const vec& c,
 
 namespace smfe
 {
-	vec three_axis_amplitude(const mat& m)
+    vec three_axis_amplitude(const mat& m)
     {
-		vec res(m.n_cols);
+        vec res(m.n_cols);
 
-		for(index_t i = 0u; i < m.n_cols; ++i) {
-			res[i] = three_axis_amplitude(vec(m.col(i)));
+        for(index_t i = 0u; i < m.n_cols; ++i) {
+            res[i] = three_axis_amplitude(vec(m.col(i)));
         }
 
-		return res;
-	}
+        return res;
+    }
 }

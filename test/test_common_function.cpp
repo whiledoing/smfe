@@ -2,7 +2,7 @@
 
 #include <boost/assign/std/vector.hpp>
 #include <smfe/global.h>
-#include <smfe/common_function.h>
+#include <smfe/statistic_function.h>
 using namespace smfe;
 
 BOOST_AUTO_TEST_CASE(test_common_func)

@@ -20,6 +20,7 @@
 #include <utility>
 
 #include <boost/assert.hpp>
+#include <boost/static_assert.hpp>
 
 #include <armadillo>
 
@@ -75,6 +76,29 @@ namespace smfe
     inline vec& make_vec(vec& source)
     {
         return source;
+    }
+
+    template<typename ContainterType>
+    ContainterType make_abs(const ContainterType& source)
+    {
+        ContainterType res(source.size());
+        for(size_t i = 0u; i < source.size(); ++i)
+            res[i] = abs(source[i]);
+        return res;
+    }
+
+    template<typename ContainterType>
+    ContainterType make_abs(ContainterType& source)
+    {
+        for(size_t i = 0u; i < source.size(); ++i)
+            source[i] = abs(source[i]);
+        return source;
+    }
+
+    template<typename ContainterType>
+    void CHECK_VALUE_TYPE(const ContainterType& c)
+    {
+        BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
     }
 }
 
