@@ -1,10 +1,13 @@
 #include <boost/test/unit_test.hpp>
+#include <boost/assign/std/vector.hpp>
 
 #include <smfe/feature/sensor_features.h>
 #include <smfe/feature/mean_filter.h>
 #include <smfe/feature/statistic_features.h>
+#include <smfe/feature/integral_calculus.h>
 using namespace smfe;
 
+#include <numeric>
 #include <algorithm>
 using namespace std;
 
@@ -68,7 +71,7 @@ BOOST_AUTO_TEST_CASE(test_mean_filter)
     }
 
     {
-		auto data = make_vec(test_data);
+        auto data = make_vec(test_data);
 
         int filter_size = 2;
         {
@@ -113,5 +116,114 @@ BOOST_AUTO_TEST_CASE(test_mean_filter)
             auto result = mean_filter_get_range(data, filter_size, 0, data.size() - 1);
             BOOST_REQUIRE(equal(data.begin(), data.end(), result.begin()));
         }
+    }
+}
+
+BOOST_AUTO_TEST_CASE(test_velocity)
+{
+    using namespace boost::assign;
+
+    std::vector<value_t> stdvec;
+    stdvec += 1, -2, 6, 7, 3, 10, 21, 15, -5, 2;
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(stdvec);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(stdvec, 1.0, 0.0, 3.0);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(stdvec, 1.0, 0.0, 3.0);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 0.0, 3.5, 7, 12, 27.5, 45.5, 53, 0.0;
+
+        auto res = velocity(stdvec, 1.0, 0.0, 7.0, 1);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    // using vec
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(make_vec(stdvec));
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(make_vec(stdvec), 1.0, 0.0, 3.0);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;
+        partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+        auto res = velocity(make_vec(stdvec), 1.0, 0.0, 3.0);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+
+    {
+        std::vector<value_t> stdres;
+        stdres += 0.0, 0.0, 0.0, 3.5, 7, 12, 27.5, 45.5, 53, 0.0;
+
+        auto res = velocity(make_vec(stdvec), 1.0, 0.0, 7.0, 1);
+        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
+        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+    }
+}
+
+BOOST_AUTO_TEST_CASE(test_distance)
+{
+    using namespace boost::assign;
+
+    std::vector<value_t> stdvec;
+    stdvec += 1, -2, 6, 7, 3, 10, 21, 15, -5, 2;
+
+    std::vector<value_t> stdres;
+    stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;
+    partial_sum(stdres.begin(), stdres.end(), stdres.begin());
+
+    {
+        auto vel_vec = velocity(stdvec);
+        BOOST_REQUIRE_CLOSE_FRACTION(distance(vel_vec, 2.0, 3), 2.0 * integration(stdres, 3), error);
+    }
+
+    {
+        auto vel_vec = velocity(make_vec(stdvec));
+        BOOST_REQUIRE_CLOSE_FRACTION(distance(vel_vec, 2.0, 3), 2.0 * integration(stdres, 3), error);
     }
 }

@@ -31,7 +31,7 @@ ContainterType velocity_impl(const ContainterType& acce_data,
                              value_t init_velocity
                             )
 {
-    std::vector<double> two_value_filtered_data = acce_data;
+    ContainterType two_value_filtered_data = acce_data;
 
     // 预处理，小于阈值的都认为是传感器静止状态下的数据
     for(int i = 0; i < two_value_filtered_data.size(); ++i) {
@@ -59,7 +59,7 @@ ContainterType velocity_impl(const ContainterType& acce_data,
             station_count = 0;
 
         /* 静态检测 : 如果有连续多个加速度数据为静止零值，将速度强制为零. */
-        if(station_count >= station_count_threshold)
+        if(station_count > station_count_threshold)
             res_velocity[i] = 0.0;
         else
             res_velocity[i] = ((two_value_filtered_data[i-1]+two_value_filtered_data[i])/2)*delta + res_velocity[i-1];
@@ -70,18 +70,19 @@ ContainterType velocity_impl(const ContainterType& acce_data,
 
 template<typename ContainterType>
 value_t distance_impl(const ContainterType& velocity_data,
-                      value_t delta
+                      value_t delta,
+					  int degree
                      )
 {
-	return delta * integration(velocity_data, 3);
+	return delta * integration(velocity_data, degree);
 }
 
 template<typename ContainterType>
 ContainterType velocity(const ContainterType& acce_data,
                         value_t delta,
+                        value_t init_velocity,
                         value_t still_acce_threshold,
                         int station_count_threshold,
-                        value_t init_velocity,
                         bool using_ave_filter,
                         int filter_size
                        )
@@ -93,7 +94,7 @@ ContainterType velocity(const ContainterType& acce_data,
     // mean filter all the vector
     if(using_ave_filter) {
         auto after_mean = mean_filter(acce_data, filter_size);
-        return velocity_impl(after_mean, delta, still_acce_threshold, station_count_threshold, init_velocity)
+        return velocity_impl(after_mean, delta, still_acce_threshold, station_count_threshold, init_velocity);
     }
 
     return velocity_impl(acce_data, delta, still_acce_threshold, station_count_threshold, init_velocity);
@@ -102,6 +103,7 @@ ContainterType velocity(const ContainterType& acce_data,
 template<typename ContainterType>
 value_t distance(const ContainterType& velocity_data,
                  value_t delta,
+				 int degree,
                  bool using_ave_filter,
                  int filter_size
                 )
@@ -110,10 +112,10 @@ value_t distance(const ContainterType& velocity_data,
 
     if(using_ave_filter) {
         auto after_mean = mean_filter(velocity_data, filter_size);
-        return distance_impl(after_mean, delta);
+        return distance_impl(after_mean, delta, degree);
     }
 
-    return distance_impl(velocity_data, delta);
+    return distance_impl(velocity_data, delta, degree);
 }
 
 }
