@@ -1,5 +1,6 @@
 #include <boost/test/unit_test.hpp>
 
+#include <boost/assign/std/vector.hpp>
 #include <smfe/global.h>
 #include <smfe/common_function.h>
 using namespace smfe;
@@ -31,7 +32,13 @@ BOOST_AUTO_TEST_CASE(test_common_func)
 		value_t p = data[i]/total_sum;
 		entropy_sum += p*log(p);
 	}
-	BOOST_REQUIRE_CLOSE_FRACTION(entropy(data), -entropy_sum, error);
+
+    {
+		using namespace boost::assign;
+		std::vector<int> count_data;
+		count_data += 5, 1, 4, 3, 2;
+		BOOST_REQUIRE_CLOSE_FRACTION(entropy(count_data), -entropy_sum, error);
+    }
 
 	BOOST_REQUIRE_CLOSE_FRACTION(energy(data), 55.0, error);
 	BOOST_REQUIRE_CLOSE_FRACTION(power(data), 55.0/data.size(), error);
@@ -66,7 +73,12 @@ BOOST_AUTO_TEST_CASE(test_common_func)
             value_t p = data[i]/total_sum;
             entropy_sum += p*log(p);
         }
-        BOOST_REQUIRE_CLOSE_FRACTION(entropy(data), -entropy_sum, error);
+        {
+            using namespace boost::assign;
+            std::vector<int> count_data;
+            count_data += 5, 1, 4, 3, 2;
+            BOOST_REQUIRE_CLOSE_FRACTION(entropy(count_data), -entropy_sum, error);
+        }
 
         BOOST_REQUIRE_CLOSE_FRACTION(energy(data), 55.0, error);
         BOOST_REQUIRE_CLOSE_FRACTION(power(data), 55.0/data.size(), error);

@@ -11,6 +11,8 @@
 #include <algorithm>
 
 #include <boost/assert.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace smfe
 {
@@ -99,7 +101,7 @@ namespace smfe
     }
 
      /**
-     * Calculates entropy of the singal
+     * Calculates entropy of the signal
      *
      * @param source signal source
      * @return signal energy
@@ -107,6 +109,11 @@ namespace smfe
 	template<typename ContainterType>
     value_t entropy(const ContainterType& source)
     {
+        BOOST_STATIC_ASSERT(
+            (boost::is_same<typename ContainterType::value_type, int>::value) ||
+            (boost::is_same<typename ContainterType::value_type, unsigned int>::value)
+		);
+
 		int total_size = 0;
 		for(auto ite = std::begin(source); ite != std::end(source); ++ite) {
 			BOOST_ASSERT(*ite >= 0);

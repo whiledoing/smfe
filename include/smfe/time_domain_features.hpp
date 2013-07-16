@@ -33,7 +33,7 @@ value_t skewness(const ContainterType& source)
 
 	CHECK_VALUE_TYPE(source);
 
-    accumulator_set<int, stats<tag::skewness > > ske_set;
+    accumulator_set<value_t, stats<tag::skewness > > ske_set;
     std::for_each(source.begin(), source.end(), std::ref(ske_set));
 
     return boost::accumulators::skewness(ske_set);
@@ -46,7 +46,7 @@ value_t kurtosis(const ContainterType& source)
 
 	CHECK_VALUE_TYPE(source);
 
-    accumulator_set<int, stats<tag::kurtosis > > kur_set;
+    accumulator_set<value_t, stats<tag::kurtosis > > kur_set;
     std::for_each(source.begin(), source.end(), std::ref(kur_set));
 
     return boost::accumulators::kurtosis(kur_set);

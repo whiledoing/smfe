@@ -23,6 +23,10 @@
 
 #include <armadillo>
 
+#ifdef _MSC_VER
+	#pragma warning(disable:4215 4018)
+#endif
+
 namespace smfe
 {
 	typedef double value_t;
