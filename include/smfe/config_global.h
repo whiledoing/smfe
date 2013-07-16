@@ -7,6 +7,8 @@
 
 #include <string>
 
+#include "sensor_global.h"
+
 #include <boost/format.hpp>
 #include <boost/exception/all.hpp>
 #include <boost/lexical_cast.hpp>
@@ -16,6 +18,9 @@
 
 namespace pt = boost::property_tree;
 namespace fs = boost::filesystem;
+
+namespace smfe
+{
 
 inline void throw_invalid_config(const std::string& err_str)
 {
@@ -63,6 +68,8 @@ inline void get_value_from_ptree(
         dst_value = data_value_from_string<T>(res.get());
     else
         dst_value = default_value;
+}
+
 }
 
 #endif // FEATURE_EXTRACTION_HPP__

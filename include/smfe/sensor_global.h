@@ -5,6 +5,7 @@
 #ifndef SENSOR_GLOBAL_H__
 #define SENSOR_GLOBAL_H__
 
+#include "global.h"
 #include <exception>
 #include <string>
 

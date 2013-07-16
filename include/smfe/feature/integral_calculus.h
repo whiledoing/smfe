@@ -68,7 +68,7 @@ value_t integration(ContainterType const& data, int degree = 2)
  *	@pre <strong class="paramname">data</strong>的数据长度比<strong class="paramname">delta_vec</strong>的长度大一
  */
 template<typename ContainterType>
-value_t integration_with_delta(ContainterType const& data, ContainterType const& delta_vec)
+value_t integration(ContainterType const& data, ContainterType const& delta_vec)
 {
     CHECK_VALUE_TYPE(data);
     CHECK_VALUE_TYPE(delta_vec);

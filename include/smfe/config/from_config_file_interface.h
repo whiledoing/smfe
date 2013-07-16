@@ -12,6 +12,9 @@
 
 #include <boost/static_assert.hpp>
 
+namespace smfe
+{
+
 template<typename T>
 class FromConfigFileInterface
 {
@@ -34,7 +37,7 @@ this_type FromConfigFileInterface<this_type>::from_config(std::istream& is)
 template<typename this_type>
 this_type FromConfigFileInterface<this_type>::from_config(const fs::path& path)
 {
-	capg::sensor::ensure_exists(path);
+	ensure_exists(path);
 
 	pt::ptree config;
 	pt::read_info(path.generic_string(), config);
@@ -46,6 +49,8 @@ template<typename this_type>
 this_type FromConfigFileInterface<this_type>::from_ptree(const fs::path& path)
 {
     BOOST_STATIC_ASSERT_MSG(false, "The class derived from FromConfigFileInterface<T> mast implement its own from_ptree method");
+}
+
 }
 
 #endif // FROM_CONFIG_FILE_INTERFACE_HPP__

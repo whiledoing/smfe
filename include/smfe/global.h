@@ -1,5 +1,5 @@
 #ifdef _MSC_VER
-	#pragma once
+#pragma once
 #endif
 
 #ifndef GLOBAL_H__
@@ -25,81 +25,81 @@
 #include <armadillo>
 
 #ifdef _MSC_VER
-	#pragma warning(disable:4215 4018)
+#pragma warning(disable:4215 4018)
 #endif
 
 namespace smfe
 {
-	typedef double value_t;
+typedef double value_t;
 
-	typedef arma::Mat<value_t> mat;
-	typedef arma::Col<value_t> vec;
+typedef arma::Mat<value_t> mat;
+typedef arma::Col<value_t> vec;
 
-	typedef std::complex<value_t> complex_t;
+typedef std::complex<value_t> complex_t;
 
-	typedef arma::Col<complex_t> cx_vec;
-	typedef arma::Mat<complex_t> cx_mat;
+typedef arma::Col<complex_t> cx_vec;
+typedef arma::Mat<complex_t> cx_mat;
 
-	typedef unsigned int index_t;
-	typedef arma::Col<index_t> index_vec;
+typedef unsigned int index_t;
+typedef arma::Col<index_t> index_vec;
 
-	typedef std::pair<index_t, index_t> index_pair_t;
-	typedef std::vector<index_pair_t> index_pair_vec;
+typedef std::pair<index_t, index_t> index_pair_t;
+typedef std::vector<index_pair_t> index_pair_vec;
 
-    inline vec make_vec(const value_t* beg, int length)
-    {
-		BOOST_ASSERT(length >= 0);
-		return vec(beg, length);
-	}
+inline vec make_vec(const value_t* beg, int length)
+{
+    BOOST_ASSERT(length >= 0);
+    return vec(beg, length);
+}
 
-    inline vec make_vec(const value_t* beg, const value_t* end)
-    {
-		BOOST_ASSERT(end-beg >= 0);
-		return make_vec(beg, end-beg);
-	}
+inline vec make_vec(const value_t* beg, const value_t* end)
+{
+    BOOST_ASSERT(end-beg >= 0);
+    return make_vec(beg, end-beg);
+}
 
-    inline vec make_vec(const std::vector<value_t>& source)
-    {
-		return vec(source);
-	}
+inline vec make_vec(const std::vector<value_t>& source)
+{
+    return vec(source);
+}
 
-    inline vec make_vec(std::vector<value_t>&& source)
-    {
-		return vec(std::move(source));
-	}
+inline vec make_vec(std::vector<value_t>&& source)
+{
+    return vec(std::move(source));
+}
 
-    inline const vec& make_vec(const vec& source)
-    {
-        return source;
-    }
+inline const vec& make_vec(const vec& source)
+{
+    return source;
+}
 
-    inline vec& make_vec(vec& source)
-    {
-        return source;
-    }
+inline vec& make_vec(vec& source)
+{
+    return source;
+}
 
-    template<typename ContainterType>
-    ContainterType make_abs(const ContainterType& source)
-    {
-        ContainterType res(source.size());
-        for(size_t i = 0u; i < source.size(); ++i)
-            res[i] = abs(source[i]);
-        return res;
-    }
+template<typename ContainterType>
+ContainterType make_abs(const ContainterType& source)
+{
+    ContainterType res(source.size());
+    for(size_t i = 0u; i < source.size(); ++i)
+        res[i] = abs(source[i]);
+    return res;
+}
 
-    template<typename ContainterType>
-    ContainterType make_abs(ContainterType& source)
-    {
-        for(size_t i = 0u; i < source.size(); ++i)
-            source[i] = abs(source[i]);
-        return source;
-    }
+template<typename ContainterType>
+ContainterType make_abs(ContainterType& source)
+{
+    for(size_t i = 0u; i < source.size(); ++i)
+        source[i] = abs(source[i]);
+    return source;
+}
 
-    template<typename ContainterType>
-    void CHECK_VALUE_TYPE(const ContainterType& c)
-    {
-        BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
-    }
+template<typename ContainterType>
+void CHECK_VALUE_TYPE(const ContainterType& c)
+{
+    BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
+}
 }
 
 #endif // GLOBAL_H__

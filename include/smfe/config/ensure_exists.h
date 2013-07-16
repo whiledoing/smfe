@@ -8,7 +8,7 @@
 #include <boost/format.hpp>
 #include <boost/exception/all.hpp>
 
-namespace capg { namespace sensor
+namespace smfe
 {
     namespace fs = boost::filesystem;
 
