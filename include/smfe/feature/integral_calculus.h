@@ -5,7 +5,7 @@
 #ifndef INTEGRAL_CALCULUS_H__
 #define INTEGRAL_CALCULUS_H__
 
-#include "global.h"
+#include "../global.h"
 #include <boost/assert.hpp>
 
 namespace smfe

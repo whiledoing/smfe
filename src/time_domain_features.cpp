@@ -1,4 +1,4 @@
-#include "smfe/time_domain_features.hpp"
+#include "smfe/feature/time_domain_features.hpp"
 
 #include <vector>
 typedef std::vector<smfe::value_t> std_vec;

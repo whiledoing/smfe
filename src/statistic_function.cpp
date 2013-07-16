@@ -1,4 +1,4 @@
-#include "smfe/statistic_function.h"
+#include "smfe/feature/statistic_function.h"
 
 namespace smfe
 {

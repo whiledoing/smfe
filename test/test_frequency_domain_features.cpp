@@ -8,9 +8,9 @@ BOOST_AUTO_TEST_CASE(test_generate_fm)
 #include <iostream>
 using namespace std;
 
-#include <smfe/time_domain_features.h>
-#include <smfe/statistic_function.h>
-#include <smfe/frequency_domain_features.h>
+#include <smfe/feature/time_domain_features.h>
+#include <smfe/feature/statistic_function.h>
+#include <smfe/feature/frequency_domain_features.h>
 using namespace smfe;
 
 #include "aquila/global.h"

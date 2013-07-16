@@ -1,9 +1,10 @@
 #include <boost/test/unit_test.hpp>
-#include <smfe/global.h>
-#include <smfe/time_domain_features.h>
-#include <smfe/statistic_function.h>
-
 #include <boost/assign/std/vector.hpp>
+
+#include <smfe/global.h>
+#include <smfe/feature/time_domain_features.h>
+#include <smfe/feature/statistic_function.h>
+
 #include <iostream>
 using namespace std;
 using namespace smfe;
@@ -179,9 +180,6 @@ BOOST_AUTO_TEST_CASE(test_three_axis_amplitude)
 		BOOST_REQUIRE_CLOSE_FRACTION(three_vec[i], res[i], error);
 }
 
-
-
-#include <whiledoing/debug_tracing.hpp>
 BOOST_AUTO_TEST_CASE(test_sma)
 {
     std::vector<value_t> data;
