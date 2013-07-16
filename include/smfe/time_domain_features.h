@@ -6,7 +6,7 @@
 #define TIME_DOMAIN_FEATURES_H__
 
 #include "../global.h"
-#include "statistic_function.h"
+#include "statistic_features.h"
 
 #include <vector>
 
