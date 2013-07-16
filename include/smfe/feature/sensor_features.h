@@ -51,7 +51,7 @@ ContainterType velocity(const ContainterType& acce_data,
  * @param using_ave_filter 是否使用均值滤波对数据进行预处理
  * @param filter_size 均值滤波使用filter的大小. i帧的数据,使用[i-filter, i+filter_size]之间的数值进行平滑
  * 
- * @return moving distance (unit meter)
+ * @return moving distance
  */
 template<typename ContainterType>
 value_t distance(const ContainterType& velocity_data, 

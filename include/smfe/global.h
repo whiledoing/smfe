@@ -96,6 +96,18 @@ ContainterType make_abs(ContainterType& source)
 }
 
 template<typename ContainterType>
+ContainterType make_sub_range(const ContainterType& data, int beg, int end)
+{
+	BOOST_ASSERT(beg >= 0 && end < data.size());
+
+    ContainterType res(end-beg+1);
+    for(int i = 0; i < res.size(); ++i)
+        res[i] = data[beg+i];
+
+    return res;
+}
+
+template<typename ContainterType>
 void CHECK_VALUE_TYPE(const ContainterType& c)
 {
     BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
