@@ -15,10 +15,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 include_directories(${_smfe_include_dirs})
 add_executable(${_target} ${_files})
-target_link_libraries(${_target} smfe_lib)
-support_aquila(${_target})
 
-set(ROOT ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(${_target} smfe_lib ${Boost_LIBRARIES})
+support_aquila(${_target})
 
 add_test(
     NAME ${_target}

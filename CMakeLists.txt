@@ -18,7 +18,7 @@ set(_smfe_include_dirs  ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 ###############################################################################
 #
-#   Common Library
+#   Library
 #
 ###############################################################################
 
@@ -31,6 +31,13 @@ include(support_aquila)
 # armadillo
 set(ARMADILLO_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/armadillo")
 include_directories(${ARMADILLO_DIR}/include)
+
+# boost
+option(Boost_USE_STATIC_LIBS "link with boost static library" ON) 
+option(Boost_USE_MULTITHREADED "link with multithreaded library" ON)  
+option(Boost_USE_STATIC_RUNTIME "link with static c runtime library" OFF) 
+find_package(Boost REQUIRED COMPONENTS filesystem system unit_test_framework)
+include_directories(${Boost_INCLUDE_DIRS})
 
 ###############################################################################
 #

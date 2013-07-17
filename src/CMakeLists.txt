@@ -10,4 +10,6 @@ endif()
 
 include_directories(${_smfe_include_dirs})
 add_library(${_target} ${_files})
+
+target_link_libraries(${_target} ${Boost_LIBRARIES})
 support_aquila(${_target})
