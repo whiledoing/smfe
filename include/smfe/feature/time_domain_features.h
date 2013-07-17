@@ -1,3 +1,10 @@
+/**
+ * @file time_domain_features.h
+ * @brief 时间域特征计算函数
+ * @author whiledoing (lovingwhile@gmail.com)
+ * @date 2013-07-17
+ */
+
 #ifdef _MSC_VER
 #pragma once
 #endif
@@ -12,6 +19,19 @@
 
 namespace smfe
 {
+/**
+ *	@defgroup tdfeatures time-domain-features
+ *
+ *	时间域下的特征
+ *	
+ *	所有本模块中定义的容器类型 ContainterType 需要符合下面的条件:
+ *
+ *	1.   STL compatiable interface (begin end operator[] size etc..)
+ *	2.   部分方法对容器中保存数据类型<b>Containtertype::value_type</b>限制为value_t
+ *
+ *	@{
+ */
+
 /**
  * Calculates skewness of the signal
  *
@@ -44,15 +64,42 @@ value_t skewness(const ContainterType& source);
 template<typename ContainterType>
 value_t kurtosis(const ContainterType& source);
 
+/**
+ * @brief 数据按照从小到大排列,3/4位置和1/4数值的差值
+ *
+ * @param source 原始<b>没有经过排序</b>的数据
+ *
+ * @return 四分位差值
+ */
 template<typename ContainterType>
 value_t quartile_deviation(const ContainterType& source);
 
+/**
+ * @brief 计算两个输出数据的互相关系数 http://planetmath.org/Covariance
+ *
+ * @note 使用N-1的方式计算标准差
+ *
+ * @return 两个数据的互相关系数
+ */
 template<typename ContainterType>
 value_t cross_correlation_coefficient(const ContainterType& lhs, const ContainterType& rhs);
 
+/**
+ * @brief 计算所有数据绝对值平均值
+ */
 template<typename ContainterType>
 value_t mean_absolute_value(const ContainterType& source);
 
+/**
+ * @brief 计算所有数据偏离绝对值均值的平均值
+ *
+ * 计算过程:
+ *
+ * 1.   计算所有数据绝对值平均值 @sa mean_absolute_value
+ * 2.   计算所有数据绝对值与该均值的差值
+ * 3.   统计所有差值的均值
+ *
+ */
 template<typename ContainterType>
 value_t mean_absolute_deviation(const ContainterType& source);
 
@@ -91,13 +138,12 @@ index_vec zero_crossing_index(const ContainterType& c);
  * 
  * 计算过程：
  *
- * 1）将数据全部变为绝对值
- * 2）计算数据的最大值，乘上effective_percentage得到有效信号幅值的最小阈值
- * 3）有效区域的开始和结尾的数值必须大于最小阈值, 且至少存在min_duration_frames个
- *	有效帧的时候才判定为进入一个有效区域.
+ * 1.	将数据全部变为绝对值
+ * 2.	计算数据的最大值，乘上effective_percentage得到有效信号幅值的最小阈值
+ * 3.	有效区域的开始和结尾的数值必须大于最小阈值, 且至少存在min_duration_frames个
+ * 有效帧的时候才判定为进入一个有效区域.
  * 
- * @tparam ConType 数据容器类型，要求是容器中保存的是一维数据
- * @param min_duration_frams 最小的被认为是有效区域的数据长度
+ * @param min_duration_frames 最小的被认为是有效区域的数据长度
  * @param c 保存数据的容器
  * @param effective_percentage 被认定有效区域数值和最大数值的比例
  * @return 保存所有有效运动区域的容器
@@ -108,14 +154,20 @@ index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int mi
 /**
  * 得到三轴向量的幅值
  * 
- * @input
- * 1.	3d向量
- * 2.	包含3d向量的矩阵
+ * @param c 3d向量
  * 
- * @return 向量的幅值,或者包含所有向量幅值的向量
+ * @return 向量的幅值
  */
 template<typename ContainterType>
 inline value_t three_axis_amplitude(const ContainterType& c);
+
+/**
+ * 得到矩阵中所有3d向量的幅值
+ * 
+ * @param m 包含一系列3d向量的矩阵
+ * 
+ * @return 包含所有幅值的向量
+ */
 vec three_axis_amplitude(const mat& m);
 
 /**
@@ -129,7 +181,12 @@ vec three_axis_amplitude(const mat& m);
 template<typename ContainterType>
 value_t sma(const ContainterType& c);
 
+/** @}*/	// end of time-domain-features group
 }
 
 #endif // TIME_DOMAIN_FEATURES_H__
 
+/**
+ *	@example test_time_domain_features.cpp
+ *	This is test file of module @ref tdfeatures
+ */

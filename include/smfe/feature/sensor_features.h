@@ -1,3 +1,10 @@
+/**
+ * @file sensor_features.h
+ * @brief 和运动信号相关的特征
+ * @author whiledoing
+ * @date 2013-07-17
+ */
+
 #ifdef _MSC_VER
 	#pragma once
 #endif
@@ -9,6 +16,17 @@
 
 namespace smfe 
 {
+/**
+ * @defgroup sensorfeatures sensor-features
+ *
+ * 运动传感相关的特征
+ *
+ * 所有本模块中定义的容器类型 ContainterType 需要符合下面的条件:
+ *
+ * 1.   STL compatiable interface (begin end operator[] size etc..)
+ * 2.   部分方法对容器中保存数据类型<b>Containtertype::value_type</b>限制为value_t*
+ *
+ * @{ */
 
 /**
  * 计算一定时间运动的速度
@@ -66,7 +84,12 @@ value_t distance(const ContainterType& velocity_data,
 				 int filter_size = 2
 );
 
+/**  @} */
 }
 
 #endif // SENSOR_FEATURES_H__
 
+/**
+ * @example test_sensor_features.cpp
+ * An example for current module @ref sensorfeatures
+ */

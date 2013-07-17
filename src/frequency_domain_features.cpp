@@ -35,9 +35,9 @@ smfe::fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
 	return res;
 }
 
-smfe::fm_vec frequency_magnitude_vec(const vec& spectrum, value_t fs)
+smfe::fm_vec frequency_magnitude_vec(const vec& source, value_t fs)
 {
-	return frequency_magnitude_vec(fft(spectrum), fs);
+	return frequency_magnitude_vec(fft(source), fs);
 }
 
 smfe::fm_vec sorted_frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
