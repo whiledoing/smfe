@@ -17,11 +17,11 @@ namespace smfe
  * 1.	输入数据必须是等间隔分布的,这里将间隔统一设置为单位1,根据计算需要不同的degree
  * 使用不同的数值积分算法.
  *	
- * 2.	不同的degree影响积分计算的最后几项.越高的degree需要计算的数据数目越多,比如
- * degree为3的时候,需要连续的三个数据计算出当前小区域的面积.所以degree为3的时候,最后
+ * 2.	不同的\c degree影响积分计算的最后几项.越高的\c degree需要计算的数据数目越多,比如
+ * \c degree为3的时候,需要连续的三个数据计算出当前小区域的面积.所以\c degree为3的时候,最后
  * 一个数据对应的积分区域没有被计算.
  * 
- * 可以参考:http://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas
+ * 可以参考: <a href="http://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas">wiki</a> http://en.wikipedia.org/wiki/Newton%E2%80%93Cotes_formulas
  *
  * @param data 输入数据
  * @param degree 计算需要的阶数

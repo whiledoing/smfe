@@ -48,6 +48,8 @@ ContainterType velocity(const ContainterType& acce_data,
  * 等间隔采样的加速度速度数据,delta就是采样时间fs.
  * 2.	degree的数值在[2,4]之间
  * 
+ * @sa integration
+ * 
  * @param velocity_data 输入的速度数据
  * @param delta 相邻数据之间间隔大小
  * @param degree 积分算法使用的degree数目
