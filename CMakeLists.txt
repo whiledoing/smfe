@@ -32,7 +32,7 @@ include(support_aquila)
 set(ARMADILLO_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/armadillo")
 include_directories(${ARMADILLO_DIR}/include)
 
-# boost
+set(BOOST_DIR $ENV{BOOST_ROOT} CACHE PATH "boost root directory")
 option(Boost_USE_STATIC_LIBS "link with boost static library" ON) 
 option(Boost_USE_MULTITHREADED "link with multithreaded library" ON)  
 option(Boost_USE_STATIC_RUNTIME "link with static c runtime library" OFF) 
