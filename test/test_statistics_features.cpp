@@ -12,22 +12,22 @@ BOOST_AUTO_TEST_CASE(test_common_func)
     value_t d[] = {5, 1, 4, 3, 2};
 	vec data = make_vec(d, 5);
 
-	value_t total_sum = sum(data);
+	value_t total_sum = smfe::sum(data);
 	value_t error = 1e-9;
 
-	BOOST_REQUIRE_CLOSE_FRACTION(sum(data), total_sum, error);
-	BOOST_REQUIRE_CLOSE_FRACTION(mean(data), total_sum/data.size(), error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::sum(data), total_sum, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::mean(data), total_sum/data.size(), error);
 
-	BOOST_REQUIRE_CLOSE_FRACTION(var(data), 2.5, error);
-	BOOST_REQUIRE_CLOSE_FRACTION(stddev(data), sqrt(2.5), error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::var(data), 2.5, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::stddev(data), sqrt(2.5), error);
 
-	BOOST_REQUIRE_CLOSE_FRACTION(min(data), 1, error);
-	BOOST_REQUIRE_CLOSE_FRACTION(max(data), 5, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::min(data), 1, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::max(data), 5, error);
 
-	BOOST_REQUIRE_CLOSE_FRACTION(median(data), 3, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::median(data), 3, error);
 
 	vec data2("6 3 4 2 1 5");
-	BOOST_REQUIRE_CLOSE_FRACTION(median(data2), 4, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(smfe::median(data2), 4, error);
 
 	value_t entropy_sum = 0;
 	for(int i = 0; i < data.size(); ++i) {
@@ -53,22 +53,22 @@ BOOST_AUTO_TEST_CASE(test_common_func)
     {
         std::vector<value_t> data(d, d+5);
 
-        value_t total_sum = sum(data);
+        value_t total_sum = smfe::sum(data);
         value_t error = 1e-9;
 
-        BOOST_REQUIRE_CLOSE_FRACTION(sum(data), total_sum, error);
-        BOOST_REQUIRE_CLOSE_FRACTION(mean(data), total_sum/data.size(), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::sum(data), total_sum, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::mean(data), total_sum/data.size(), error);
 
-        BOOST_REQUIRE_CLOSE_FRACTION(var(data), 2.5, error);
-        BOOST_REQUIRE_CLOSE_FRACTION(stddev(data), sqrt(2.5), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::var(data), 2.5, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::stddev(data), sqrt(2.5), error);
 
-        BOOST_REQUIRE_CLOSE_FRACTION(min(data), 1, error);
-        BOOST_REQUIRE_CLOSE_FRACTION(max(data), 5, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::min(data), 1, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::max(data), 5, error);
 
-        BOOST_REQUIRE_CLOSE_FRACTION(median(data), 3, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::median(data), 3, error);
 
         vec data2("6 3 4 2 1 5");
-        BOOST_REQUIRE_CLOSE_FRACTION(median(data2), 4, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::median(data2), 4, error);
 
         value_t entropy_sum = 0;
         for(int i = 0; i < data.size(); ++i) {

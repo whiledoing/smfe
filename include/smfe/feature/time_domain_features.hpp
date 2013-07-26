@@ -64,7 +64,7 @@ value_t cross_correlation_coefficient(const ContainterType& lhs, const Containte
 template<typename ContainterType>
 value_t mean_absolute_deviation(const ContainterType& source)
 {
-    value_t m = mean(source);
+    value_t m = smfe::mean(source);
 
     value_t sum = 0.0;
     for(auto ite = source.begin(); ite != source.end(); ++ite)
@@ -76,7 +76,7 @@ value_t mean_absolute_deviation(const ContainterType& source)
 template<typename ContainterType>
 value_t mean_absolute_value(const ContainterType& source)
 {
-	return mean(make_abs(source));
+	return smfe::mean(make_abs(source));
 }
 
 template<typename ContainterType>
@@ -129,7 +129,7 @@ index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int mi
 	CHECK_VALUE_TYPE(c);
 
 	auto abs_c = make_abs(c);
-    auto max_v = max(abs_c);
+    auto max_v = smfe::max(abs_c);
     auto delta_v = max_v * effective_percentage;
 
     index_t duration_count = 0;

@@ -25,8 +25,8 @@ BOOST_AUTO_TEST_CASE(test_statistics_feature)
         BOOST_REQUIRE_EQUAL(first_quater(data), 3);
         BOOST_REQUIRE_EQUAL(third_quater(data), 7);
 
-        BOOST_REQUIRE_CLOSE_FRACTION(mean(data), 5.0, error);
-        BOOST_REQUIRE_CLOSE_FRACTION(mean_absolute_deviation(data), 2.4, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::mean(data), 5.0, error);
+        BOOST_REQUIRE_CLOSE_FRACTION(smfe::mean_absolute_deviation(data), 2.4, error);
 
         {
             std::vector<value_t> data;

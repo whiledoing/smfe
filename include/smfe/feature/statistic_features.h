@@ -40,7 +40,7 @@ namespace smfe
  * 计算和值
  */
 template<typename ContainterType>
-inline value_t sum(ContainterType& source)
+inline value_t sum(const ContainterType& source)
 {
     return arma::sum(make_vec(source));
 }
@@ -49,7 +49,7 @@ inline value_t sum(ContainterType& source)
  * 计算均值
  */
 template<typename ContainterType>
-inline value_t mean(ContainterType& source)
+inline value_t mean(const ContainterType& source)
 {
     return arma::mean(make_vec(source));
 }
@@ -60,16 +60,16 @@ inline value_t mean(ContainterType& source)
  * @note 如果数据总数为偶数,那么中值被计算为中间值中较大的一个
  */
 template<typename ContainterType>
-inline value_t median(ContainterType& source)
+inline value_t median(const ContainterType& source)
 {
-    return get_nth_elem(ContainterType(source), source.size()/2);
+    return get_nth_elem(source, source.size()/2);
 }
 
 /**
  * 计算方差
  */
 template<typename ContainterType>
-inline value_t var(ContainterType& source)
+inline value_t var(const ContainterType& source)
 {
     return arma::var(make_vec(source));
 }
@@ -78,19 +78,19 @@ inline value_t var(ContainterType& source)
  * 计算标准差
  */
 template<typename ContainterType>
-inline value_t stddev(ContainterType& source)
+inline value_t stddev(const ContainterType& source)
 {
     return arma::stddev(make_vec(source));
 }
 
 template<typename ContainterType>
-inline value_t min(ContainterType& source)
+inline value_t min(const ContainterType& source)
 {
     return arma::min(make_vec(source));
 }
 
 template<typename ContainterType>
-inline value_t max(ContainterType& source)
+inline value_t max(const ContainterType& source)
 {
     return arma::max(make_vec(source));
 }
@@ -101,12 +101,14 @@ inline value_t max(ContainterType& source)
  * @note 输入数据 \c source 是<b>没有经过排序的</b>
  */
 template<typename ContainterType>
-value_t get_nth_elem(ContainterType& source, int nth)
+value_t get_nth_elem(const ContainterType& source, int nth)
 {
     BOOST_ASSERT(nth < source.size());
 
-    auto dst_ite = source.begin() + nth;
-    std::nth_element(source.begin(), dst_ite, source.end());
+	// copy source
+	ContainterType res = source;
+    auto dst_ite = res.begin() + nth;
+    std::nth_element(res.begin(), dst_ite, res.end());
     return *dst_ite;
 }
 
@@ -116,7 +118,7 @@ value_t get_nth_elem(ContainterType& source, int nth)
 template<typename ContainterType>
 value_t first_quater(const ContainterType& data)
 {
-    return get_nth_elem(ContainterType(data), data.size()/4);
+    return get_nth_elem(data, data.size()/4);
 }
 
 /**
@@ -125,7 +127,7 @@ value_t first_quater(const ContainterType& data)
 template<typename ContainterType>
 value_t third_quater(const ContainterType& data)
 {
-    return get_nth_elem(ContainterType(data), data.size()/4*3);
+    return get_nth_elem(data, data.size()/4*3);
 }
 
 /**
