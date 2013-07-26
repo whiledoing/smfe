@@ -100,17 +100,15 @@ inline vec& make_vec(vec& source)
 /**
  * make_abs是将一个向量转化为绝对值的向量
  */
-template<typename ContainterType>
-ContainterType make_abs(const ContainterType& source)
+inline vec make_abs(const vec& source)
 {
-    ContainterType res(source.size());
+    vec res(source.size());
     for(size_t i = 0u; i < source.size(); ++i)
         res[i] = abs(source[i]);
     return res;
 }
 
-template<typename ContainterType>
-ContainterType make_abs(ContainterType& source)
+inline vec make_abs(vec& source)
 {
     for(size_t i = 0u; i < source.size(); ++i)
         source[i] = abs(source[i]);
@@ -122,12 +120,11 @@ ContainterType make_abs(ContainterType& source)
  *
  * @note 区间范围为[beg, end], 两边都是闭区间
  */
-template<typename ContainterType>
-ContainterType make_sub_range(const ContainterType& data, int beg, int end)
+inline vec make_sub_range(const vec& data, int beg, int end)
 {
 	BOOST_ASSERT(beg >= 0 && end < data.size());
 
-    ContainterType res(end-beg+1);
+    vec res(end-beg+1);
     for(int i = 0; i < res.size(); ++i)
         res[i] = data[beg+i];
 
@@ -137,10 +134,9 @@ ContainterType make_sub_range(const ContainterType& data, int beg, int end)
 /**
  * 检查向量数据类型的辅助方法
  */
-template<typename ContainterType>
-void CHECK_VALUE_TYPE(const ContainterType& c)
+inline void CHECK_VALUE_TYPE(const vec& c)
 {
-    BOOST_STATIC_ASSERT((boost::is_same<typename ContainterType::value_type, value_t>::value));
+    BOOST_STATIC_ASSERT((boost::is_same<typename vec::value_type, value_t>::value));
 }
 
 /** @}*/
@@ -200,15 +196,7 @@ boost查找有两个办法:
 
 1.  本库的基本类型定义在`include/smfe/global.h`文件中
 
-2.  计算特征的大部分方法都是模板类,可以放入一个向量作为输入参数,该向量类型需要符合
-下面的要求:
-
-    *   STL兼容的接口 (begin end operator[] size etc)
-    *   一些方法中限定容器中的数据类型为value_t (参考globl.h)
-
-3.  `std::vector`和`arma::vec`都可以作为有效的容器类型.
-
-4.  可以参考`test`目录下的测试代码作为example
+2.  可以参考`test`目录下的测试代码作为example
 
 ## TODO
 

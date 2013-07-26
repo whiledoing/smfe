@@ -23,7 +23,7 @@ namespace smfe
  *	@defgroup tdfeatures time-domain-features
  *
  *	时间域下的特征
- *	
+ *
  *	所有本模块中定义的容器类型 ContainterType 需要符合下面的条件:
  *
  *	1.   STL compatiable interface (begin end operator[] size etc..)
@@ -46,8 +46,7 @@ namespace smfe
  * @param source signal source
  * @return skewness
  */
-template<typename ContainterType>
-value_t skewness(const ContainterType& source);
+value_t skewness(const vec& source);
 
 /**
 * Calculates kurtosis of the signal
@@ -61,8 +60,7 @@ value_t skewness(const ContainterType& source);
 * @param source signal source
 * @return skewness
 */
-template<typename ContainterType>
-value_t kurtosis(const ContainterType& source);
+value_t kurtosis(const vec& source);
 
 /**
  * @brief 数据按照从小到大排列,3/4位置和1/4数值的差值
@@ -71,8 +69,7 @@ value_t kurtosis(const ContainterType& source);
  *
  * @return 四分位差值
  */
-template<typename ContainterType>
-value_t quartile_deviation(const ContainterType& source);
+value_t quartile_deviation(const vec& source);
 
 /**
  * @brief 计算两个输出数据的互相关系数 http://planetmath.org/Covariance
@@ -81,14 +78,12 @@ value_t quartile_deviation(const ContainterType& source);
  *
  * @return 两个数据的互相关系数
  */
-template<typename ContainterType>
-value_t cross_correlation_coefficient(const ContainterType& lhs, const ContainterType& rhs);
+value_t cross_correlation_coefficient(const vec& lhs, const vec& rhs);
 
 /**
  * @brief 计算所有数据绝对值平均值
  */
-template<typename ContainterType>
-value_t mean_absolute_value(const ContainterType& source);
+value_t mean_absolute_value(const vec& source);
 
 /**
  * @brief 计算所有数据偏离绝对值均值的平均值
@@ -100,8 +95,7 @@ value_t mean_absolute_value(const ContainterType& source);
  * 3.   统计所有差值的均值
  *
  */
-template<typename ContainterType>
-value_t mean_absolute_deviation(const ContainterType& source);
+value_t mean_absolute_deviation(const vec& source);
 
 /**
 * Get all the peak value in container
@@ -115,57 +109,53 @@ value_t mean_absolute_deviation(const ContainterType& source);
 * @tparam Container Type
 * @result all the peak value index in the container
 */
-template<typename ContainterType>
-index_vec peak_index(const ContainterType& source);
+index_vec peak_index(const vec& source);
 
 /**
  * Get all the zero-crossing values in the container c
- * 
- * zero-crossing value is the value where data just change from positive to 
+ *
+ * zero-crossing value is the value where data just change from positive to
  * negative or negative to positive
- * 
+ *
  * @tparam Container Type
  * @result zero-crossing index in data collection
  */
-template<typename ContainterType>
-index_vec zero_crossing_index(const ContainterType& c);
+index_vec zero_crossing_index(const vec& c);
 
 /**
- * Get the efficient signal range 
- * 
+ * Get the efficient signal range
+ *
  * 计算有效的信号区域。
  * 一个有效的信号区域内的数据都大于一个制定的值幅。
- * 
+ *
  * 计算过程：
  *
  * 1.	将数据全部变为绝对值
  * 2.	计算数据的最大值，乘上effective_percentage得到有效信号幅值的最小阈值
  * 3.	有效区域的开始和结尾的数值必须大于最小阈值, 且至少存在min_duration_frames个
  * 有效帧的时候才判定为进入一个有效区域.
- * 
+ *
  * @param min_duration_frames 最小的被认为是有效区域的数据长度
  * @param c 保存数据的容器
  * @param effective_percentage 被认定有效区域数值和最大数值的比例
  * @return 保存所有有效运动区域的容器
  */
-template<typename ContainterType>
-index_pair_vec effective_duration_index_pair_vec(const ContainterType& c, int min_duration_frames = 1,
-                                                         double effective_percentage = 0.2);
+index_pair_vec effective_duration_index_pair_vec(const vec& c, int min_duration_frames = 1,
+        double effective_percentage = 0.2);
 /**
  * 得到三轴向量的幅值
- * 
+ *
  * @param c 3d向量
- * 
+ *
  * @return 向量的幅值
  */
-template<typename ContainterType>
-inline value_t three_axis_amplitude(const ContainterType& c);
+inline value_t three_axis_amplitude(const vec& c);
 
 /**
  * 得到矩阵中所有3d向量的幅值
- * 
+ *
  * @param m 包含一系列3d向量的矩阵
- * 
+ *
  * @return 包含所有幅值的向量
  */
 vec three_axis_amplitude(const mat& m);
@@ -178,8 +168,7 @@ vec three_axis_amplitude(const mat& m);
  * @param c 包含信号的向量
  * @return	幅值面积
  */
-template<typename ContainterType>
-value_t sma(const ContainterType& c);
+value_t sma(const vec& c);
 
 /** @}*/	// end of time-domain-features group
 }

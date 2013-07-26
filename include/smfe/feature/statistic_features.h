@@ -27,11 +27,6 @@ namespace smfe
  * @defgroup stfeatures statiscs-features
  *
  * 统计特征
- * 
- * 所有本模块中定义的容器类型 ContainterType 需要符合下面的条件:
- *
- * 1.   STL compatiable interface (begin end operator[] size etc..)
- * 2.   部分方法对容器中保存数据类型<b>Containtertype::value_type</b>限制为value_t
  *
  * @{
  */
@@ -39,84 +34,47 @@ namespace smfe
 /**
  * 计算和值
  */
-template<typename ContainterType>
-inline value_t sum(const ContainterType& source)
-{
-    return arma::sum(make_vec(source));
-}
+using arma::sum;
 
 /**
  * 计算均值
  */
-template<typename ContainterType>
-inline value_t mean(const ContainterType& source)
-{
-    return arma::mean(make_vec(source));
-}
+using arma::mean;
 
 /**
  * 计算中值
  *
- * @note 如果数据总数为偶数,那么中值被计算为中间值中较大的一个
+ * @note 如果数据总数为偶数,那么中值被计算为中间两个数值的均值
  */
-template<typename ContainterType>
-inline value_t median(const ContainterType& source)
-{
-    return get_nth_elem(source, source.size()/2);
-}
+using arma::median;
 
 /**
  * 计算方差
  */
-template<typename ContainterType>
-inline value_t var(const ContainterType& source)
-{
-    return arma::var(make_vec(source));
-}
+using arma::var;
 
 /**
  * 计算标准差
  */
-template<typename ContainterType>
-inline value_t stddev(const ContainterType& source)
-{
-    return arma::stddev(make_vec(source));
-}
+using arma::stddev;
 
-template<typename ContainterType>
-inline value_t min(const ContainterType& source)
-{
-    return arma::min(make_vec(source));
-}
-
-template<typename ContainterType>
-inline value_t max(const ContainterType& source)
-{
-    return arma::max(make_vec(source));
-}
+/**
+ * 最值
+ */
+using arma::min;
+using arma::max;
 
 /**
  * 得到第n个小的元素
  *
  * @note 输入数据 \c source 是<b>没有经过排序的</b>
  */
-template<typename ContainterType>
-value_t get_nth_elem(const ContainterType& source, int nth)
-{
-    BOOST_ASSERT(nth < source.size());
-
-	// copy source
-	ContainterType res = source;
-    auto dst_ite = res.begin() + nth;
-    std::nth_element(res.begin(), dst_ite, res.end());
-    return *dst_ite;
-}
+value_t get_nth_elem(const vec& source, int nth);
 
 /**
  * 得到1/4小的元素 @sa get_nth_elem
  */
-template<typename ContainterType>
-value_t first_quater(const ContainterType& data)
+inline value_t first_quater(const vec& data)
 {
     return get_nth_elem(data, data.size()/4);
 }
@@ -124,8 +82,7 @@ value_t first_quater(const ContainterType& data)
 /**
  * 得到3/4小的元素 @sa get_nth_elem
  */
-template<typename ContainterType>
-value_t third_quater(const ContainterType& data)
+inline value_t third_quater(const vec& data)
 {
     return get_nth_elem(data, data.size()/4*3);
 }
@@ -136,22 +93,12 @@ value_t third_quater(const ContainterType& data)
  * @param source signal source
  * @return signal energy
  */
-template<typename ContainterType>
-value_t energy(const ContainterType& source)
-{
-    value_t init_value = 0.0;
-    return std::accumulate(
-               std::begin(source),
-               std::end(source),
-               init_value,
-    [] (value_t acc, value_t value) {
-        return acc + value * value;
-    });
-}
+value_t energy(const vec& source);
 
 /**
 * Calculates entropy of the signal
 *
+* @note 输入容器中必须类型为 int 或者 unsigned int
 * @param source signal source
 * @return signal energy
 */
@@ -187,8 +134,7 @@ value_t entropy(const ContainterType& source)
  * @param source signal source
  * @return signal power
  */
-template<typename ContainterType>
-inline value_t power(const ContainterType& source)
+inline value_t power(const vec& source)
 {
     return energy(source) / source.size();
 }
@@ -199,8 +145,7 @@ inline value_t power(const ContainterType& source)
  * @param source signal source
  * @return norm
  */
-template<typename ContainterType>
-inline value_t norm(const ContainterType& source)
+inline value_t norm(const vec& source)
 {
     return std::sqrt(energy(source));
 }
@@ -211,8 +156,7 @@ inline value_t norm(const ContainterType& source)
  * @param source signal source
  * @return RMS level
  */
-template<typename ContainterType>
-inline value_t rms(const ContainterType& source)
+inline value_t rms(const vec& source)
 {
     return std::sqrt(power(source));
 }

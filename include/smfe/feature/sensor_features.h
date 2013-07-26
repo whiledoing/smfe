@@ -46,8 +46,7 @@ namespace smfe
  * 
  * @return velocity collection 
  */
-template<typename ContainterType>
-ContainterType velocity(const ContainterType& acce_data, 
+vec velocity(const vec& acce_data, 
 						value_t delta = 1.0,
                         value_t init_velocity = 0.0, 
                         value_t still_acce_threshold = 0.0, 
@@ -76,8 +75,7 @@ ContainterType velocity(const ContainterType& acce_data,
  * 
  * @return moving distance
  */
-template<typename ContainterType>
-value_t distance(const ContainterType& velocity_data, 
+value_t distance(const vec& velocity_data, 
 				 value_t delta = 1.0,
 				 int degree = 3,
 				 bool using_ave_filter = false,
