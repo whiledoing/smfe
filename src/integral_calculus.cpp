@@ -2,7 +2,7 @@
 
 namespace smfe {
 
-smfe::value_t smfe::integration(vec const& data, int degree /*= 2*/)
+value_t integration(vec const& data, int degree /*= 2*/)
 {
     CHECK_VALUE_TYPE(data);
 
@@ -28,7 +28,7 @@ smfe::value_t smfe::integration(vec const& data, int degree /*= 2*/)
     return sum;
 }
 
-smfe::value_t smfe::integration(vec const& data, vec const& delta_vec)
+value_t integration(vec const& data, vec const& delta_vec)
 {
     CHECK_VALUE_TYPE(data);
     CHECK_VALUE_TYPE(delta_vec);

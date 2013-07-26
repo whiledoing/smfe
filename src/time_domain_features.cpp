@@ -1,4 +1,3 @@
-#include "smfe/feature/time_domain_features.hpp"
 #include "smfe/feature/time_domain_features.h"
 #include "smfe/feature/statistic_features.h"
 #include "smfe/feature/integral_calculus.h"
