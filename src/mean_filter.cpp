@@ -2,7 +2,7 @@
 
 namespace smfe
 {
-smfe::value_t mean_filter_get_one_index(const vec& data, int filter_size, int index)
+value_t mean_filter_get_one_index(const vec& data, int filter_size, int index)
 {
     BOOST_ASSERT(index < data.size());
     BOOST_ASSERT(filter_size >= 0);

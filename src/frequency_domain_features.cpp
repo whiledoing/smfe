@@ -15,12 +15,12 @@ inline bool operator< (const complex_t& lhs, const complex_t& rhs)
 	return abs(lhs) < abs(rhs);
 }
 
-smfe::value_t median_frequency(const fm_vec& fm_vector)
+value_t median_frequency(const fm_vec& fm_vector)
 {
     return fm_vector[fm_vector.size()/2].fre;
 }
 
-smfe::fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
+fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
 {
     // get first half frequency spectrum
     size_t size = spectrum.size();
@@ -35,39 +35,39 @@ smfe::fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
 	return res;
 }
 
-smfe::fm_vec frequency_magnitude_vec(const vec& source, value_t fs)
+fm_vec frequency_magnitude_vec(const vec& source, value_t fs)
 {
 	return frequency_magnitude_vec(fft(source), fs);
 }
 
-smfe::fm_vec sorted_frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
+fm_vec sorted_frequency_magnitude_vec(const cx_vec& spectrum, value_t fs)
 {
 	fm_vec res = frequency_magnitude_vec(spectrum, fs);
 	sort(res.begin(), res.end(), greater<FrequencyMagnitude>());
 	return res;
 }
 
-smfe::fm_vec sorted_frequency_magnitude_vec(const vec& spectrum, value_t fs)
+fm_vec sorted_frequency_magnitude_vec(const vec& spectrum, value_t fs)
 {
 	return sorted_frequency_magnitude_vec(fft(spectrum), fs);
 }
 
-smfe::value_t first_quater(const fm_vec& fm_vector)
+value_t first_quater(const fm_vec& fm_vector)
 {
 	return fm_vector[fm_vector.size()/4].fre;
 }
 
-smfe::value_t third_quater_frequency(const fm_vec& fm_vector)
+value_t third_quater_frequency(const fm_vec& fm_vector)
 {
 	return fm_vector[fm_vector.size()/4*3].fre;
 }
 
-smfe::value_t principal_frequency(const fm_vec& fm_vector)
+value_t principal_frequency(const fm_vec& fm_vector)
 {
 	return fm_vector.front().fre;
 }
 
-smfe::vec first_n_frequency(const fm_vec& fm_vector, int n)
+vec first_n_frequency(const fm_vec& fm_vector, int n)
 {
 	BOOST_ASSERT(n > 0 && n < fm_vector.size());
 
@@ -77,7 +77,7 @@ smfe::vec first_n_frequency(const fm_vec& fm_vector, int n)
 	return res;
 }
 
-smfe::value_t frequency_energy(const fm_vec& fm_vector)
+value_t frequency_energy(const fm_vec& fm_vector)
 {
 	vector<value_t> mags;
 	for(auto fm : fm_vector)
@@ -86,7 +86,7 @@ smfe::value_t frequency_energy(const fm_vec& fm_vector)
 	return energy(mags);
 }
 
-smfe::value_t frequency_entropy(const fm_vec& fm_vector, int range_num /*= 8*/)
+value_t frequency_entropy(const fm_vec& fm_vector, int range_num /*= 8*/)
 {
 	BOOST_ASSERT(range_num > 0 && range_num < fm_vector.size());
 

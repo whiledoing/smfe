@@ -2,7 +2,7 @@
 
 namespace smfe
 {
-smfe::value_t energy(const vec& source)
+value_t energy(const vec& source)
 {
     value_t init_value = 0.0;
     return std::accumulate(
@@ -14,7 +14,7 @@ smfe::value_t energy(const vec& source)
     });
 }
 
-smfe::value_t get_nth_elem(const vec& source, int nth)
+value_t get_nth_elem(const vec& source, int nth)
 {
     BOOST_ASSERT(nth < source.size());
 
