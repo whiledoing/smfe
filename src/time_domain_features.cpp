@@ -71,11 +71,11 @@ index_vec peak_index(const vec& source)
     CHECK_VALUE_TYPE(source);
 
     static auto abs_greater = [](value_t lhs, value_t rhs) {
-        return abs(lhs) > abs(rhs);
+        return fabs(lhs) > fabs(rhs);
     };
 
     std::vector<unsigned> res;
-    for(unsigned i = 1u; i < source.size(); ++i) {
+    for(unsigned i = 1u; i < source.size() - 1; ++i) {
         if(abs_greater(source[i], source[i-1]) && abs_greater(source[i], source[i+1]))
             res.push_back(i);
     }
