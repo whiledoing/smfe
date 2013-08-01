@@ -62,6 +62,12 @@ typedef arma::Col<index_t> index_vec;   /** < 保存索引的数组 */
 typedef std::pair<index_t, index_t> index_pair_t;   /**< 保存一对索引区间的结构 */
 typedef std::vector<index_pair_t> index_pair_vec;   /**< 保存索引区间的向量结构 */
 
+class SMFEException : public std::exception
+{
+public:
+    SMFEException(const std::string& error) : std::exception(("[SMFE Error] " + error).c_str()) {}
+};
+
 /**
  * make_vec方法为建立vec数据结构的适配器方法
  */
@@ -118,13 +124,13 @@ inline vec make_abs(vec& source)
 /**
  * make_sub_range将一个向量的区间数据提取出来
  *
- * @note 区间范围为[beg, end], 两边都是闭区间
+ * @note 区间范围为[beg, end)
  */
 inline vec make_sub_range(const vec& data, int beg, int end)
 {
-	BOOST_ASSERT(beg >= 0 && end < data.size());
+	BOOST_ASSERT(beg >= 0 && end <= data.size() && beg <= end);
 
-    vec res(end-beg+1);
+    vec res(end-beg);
     for(int i = 0; i < res.size(); ++i)
         res[i] = data[beg+i];
 

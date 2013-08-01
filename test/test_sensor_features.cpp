@@ -29,44 +29,44 @@ BOOST_AUTO_TEST_CASE(test_mean_filter)
     int filter_size = 2;
     {
         value_t result = smfe::mean_filter_get_one_index(data, filter_size, 0);
-        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 0, filter_size)), error);
-    }
-    {
-        auto result = smfe::mean_filter_get_one_index(data, filter_size, 1);
         BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 0, filter_size+1)), error);
     }
     {
-        auto result = smfe::mean_filter_get_one_index(data, filter_size, 2);
+        auto result = smfe::mean_filter_get_one_index(data, filter_size, 1);
         BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 0, filter_size+2)), error);
     }
     {
+        auto result = smfe::mean_filter_get_one_index(data, filter_size, 2);
+        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 0, filter_size+3)), error);
+    }
+    {
         auto result = smfe::mean_filter_get_one_index(data, filter_size, 5);
-        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 5-filter_size, 5+filter_size)), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, 5-filter_size, 6+filter_size)), error);
     }
     {
         auto result = smfe::mean_filter_get_one_index(data, filter_size, size-1-filter_size);
-        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size-1-2*filter_size, size-1)), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size-1-2*filter_size, size)), error);
     }
     {
         auto result = smfe::mean_filter_get_one_index(data, filter_size, size-filter_size);
-        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size-2*filter_size, size-1)), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size-2*filter_size, size)), error);
     }
     {
         auto result = smfe::mean_filter_get_one_index(data, filter_size, size+1-filter_size);
-        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size+1-2*filter_size, size-1)), error);
+        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(make_sub_range(data, size+1-2*filter_size, size)), error);
     }
 
     // test smfe::mean_filter_get_range
-    auto result = smfe::mean_filter_get_range(data, filter_size, 0, data.size()-1);
-    BOOST_REQUIRE_CLOSE_FRACTION(result[0], smfe::mean(make_sub_range(data, 0, filter_size)), error);
-    BOOST_REQUIRE_CLOSE_FRACTION(result[1], smfe::mean(make_sub_range(data, 0, 1+filter_size)), error);
-    BOOST_REQUIRE_CLOSE_FRACTION(result[2], smfe::mean(make_sub_range(data, 0, 2+filter_size)), error);
-    BOOST_REQUIRE_CLOSE_FRACTION(result[4], smfe::mean(make_sub_range(data, 4-filter_size, 4+filter_size)), error);
-    BOOST_REQUIRE_CLOSE_FRACTION(result[size-filter_size], smfe::mean(make_sub_range(data, size-2*filter_size, size-1)), error);
+    auto result = smfe::mean_filter_get_range(data, filter_size, 0, data.size());
+    BOOST_REQUIRE_CLOSE_FRACTION(result[0], smfe::mean(make_sub_range(data, 0, 1+filter_size)), error);
+    BOOST_REQUIRE_CLOSE_FRACTION(result[1], smfe::mean(make_sub_range(data, 0, 2+filter_size)), error);
+    BOOST_REQUIRE_CLOSE_FRACTION(result[2], smfe::mean(make_sub_range(data, 0, 3+filter_size)), error);
+    BOOST_REQUIRE_CLOSE_FRACTION(result[4], smfe::mean(make_sub_range(data, 4-filter_size, 5+filter_size)), error);
+    BOOST_REQUIRE_CLOSE_FRACTION(result[size-filter_size], smfe::mean(make_sub_range(data, size-2*filter_size, size)), error);
 
     {
         int filter_size = 0;
-        auto result = smfe::mean_filter_get_range(data, filter_size, 0, data.size() - 1);
+        auto result = smfe::mean_filter_get_range(data, filter_size, 0, data.size());
         BOOST_REQUIRE(equal(data.begin(), data.end(), result.begin()));
     }
 }

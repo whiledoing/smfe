@@ -66,7 +66,7 @@ typedef std::vector<FrequencyMagnitude> fm_vec;
 /**
  * 根据原始信号计算频谱
  */
-cx_vec fft(const vec& source);
+using arma::fft;
 
 /**
 * @brief 根据原始信号得到<b>频率-幅值</b>信息

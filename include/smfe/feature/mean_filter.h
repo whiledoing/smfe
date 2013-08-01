@@ -32,7 +32,7 @@ value_t mean_filter_get_one_index(const vec& data, int filter_size, int index);
 /**
  * @brief 计算一段区间内的滤波结果
  *
- * @note 区间范围为[start_index, end_index]两边都是包含关系
+ * @note 区间范围为[start_index, end_index)两边都是包含关系
  */
 vec mean_filter_get_range(const vec& data, int filter_size, int start_index, int end_index);
 
@@ -42,7 +42,7 @@ vec mean_filter_get_range(const vec& data, int filter_size, int start_index, int
  */
 inline vec mean_filter(const vec& data, int filter_size)
 {
-    return mean_filter_get_range(data, filter_size, 0, data.size() - 1);
+    return mean_filter_get_range(data, filter_size, 0, data.size());
 }
 
 }

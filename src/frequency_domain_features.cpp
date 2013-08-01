@@ -105,9 +105,4 @@ value_t frequency_entropy(const fm_vec& fm_vector, int range_num /*= 8*/)
 	return entropy(count);
 }
 
-cx_vec fft(const vec& source)
-{
-	return arma::fft(source);
-}
-
 }

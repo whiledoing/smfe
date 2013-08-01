@@ -21,12 +21,12 @@ value_t mean_filter_get_one_index(const vec& data, int filter_size, int index)
 vec mean_filter_get_range(const vec& data, int filter_size, int start_index, int end_index)
 {
     BOOST_ASSERT(start_index < data.size());
-    BOOST_ASSERT(end_index < data.size());
+    BOOST_ASSERT(end_index <= data.size());
     BOOST_ASSERT(start_index <= end_index);
     BOOST_ASSERT(filter_size >= 0);
 
-    vec result(end_index - start_index + 1);
-    for(int i = start_index; i <= end_index; ++i) {
+    vec result(end_index - start_index);
+    for(int i = start_index; i != end_index; ++i) {
         result[i-start_index] = mean_filter_get_one_index(data, filter_size, i);
     }
     return result;
