@@ -13,10 +13,9 @@ void test_func();
 namespace smfe
 {
 
-enum SignalType
-{
-	TIME_SIGNAL,
-	WAVELET_SIGNAL
+enum SignalType {
+    TIME_SIGNAL,
+    WAVELET_SIGNAL
 };
 
 typedef std::vector<int> dwt_length_vec;
@@ -44,6 +43,10 @@ vec dwt_approximation_coeff(const vec& wavelet_signal, const dwt_length_vec& len
 vec dwt_detail_coeff(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level);
 vec dwt_detail_coeff(const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_level);
 
+std::vector<vec> dwt_detail_coeff_of_range(const vec& time_signal,
+        std::string wavelet_name, int wavelet_level, int detail_coeff_start_level, int detail_coeff_end_level);
+std::vector<vec> dwt_detail_coeff_of_range(const vec& wavelet_signal,
+        const dwt_length_vec& length, int detail_coeff_start_level, int detail_coeff_end_level);
 }
 
 #endif // WAVELET_FEATURES_H__

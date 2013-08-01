@@ -117,4 +117,34 @@ vec idwt(const vec& wavelet_signal, std::string wavelet_name, int wavelet_level,
 	return res;
 }
 
+std::vector<vec> dwt_detail_coeff_of_range(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_start_level, int detail_coeff_end_level)
+{
+    dwt_length_vec length;
+    auto wavelet_signal = dwt(time_signal, wavelet_name, wavelet_level, length);
+
+    return dwt_detail_coeff_of_range(wavelet_signal, length, detail_coeff_start_level, detail_coeff_end_level);
+}
+
+std::vector<vec> dwt_detail_coeff_of_range(const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_start_level, int detail_coeff_end_level)
+{
+	BOOST_ASSERT(detail_coeff_start_level >= 0 && detail_coeff_start_level <= detail_coeff_end_level);
+
+    check_signal_size_validation(wavelet_signal, length.size() - 1);
+
+    if(detail_coeff_start_level < 1)
+        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_start_level must bigger than 1");
+
+    if(detail_coeff_start_level >= length.size())
+        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_start_level must less equal than dwt level");
+
+	std::vector<vec> res;
+    int end_index = wavelet_signal.size();
+    for(int i = detail_coeff_end_level-1; i >= detail_coeff_start_level; --i) {
+		res.push_back(make_sub_range(wavelet_signal, end_index-length[i], end_index));
+		end_index -= length[i];
+    }
+
+	return res;
+}
+
 }

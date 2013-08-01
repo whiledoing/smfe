@@ -142,4 +142,10 @@ BOOST_AUTO_TEST_CASE(test_idwt)
             BOOST_REQUIRE_CLOSE_FRACTION(signal[i], idwt_output[i], error);
     }
 
+	mat m;
+	m.
+	vec a("1 2 3 4");
+	m[1] = a;
+	m[2] = a;
+	m[3] = a;
 }
