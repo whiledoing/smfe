@@ -18,6 +18,7 @@ add_executable(${_target} ${_files})
 
 target_link_libraries(${_target} smfe_lib ${Boost_LIBRARIES})
 support_aquila(${_target})
+support_fftw(${_target})
 
 add_test(
     NAME ${_target}
