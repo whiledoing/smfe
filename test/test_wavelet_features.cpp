@@ -4,6 +4,7 @@ namespace bf = boost::filesystem;
 
 #include <config.h>
 #include <smfe/feature/wavelet_features.h>
+#include <smfe/feature/statistic_features.h>
 
 #include <string>
 #include <vector>
@@ -173,5 +174,29 @@ BOOST_AUTO_TEST_CASE(test_range_detail_coeff)
 			BOOST_REQUIRE_EQUAL(coef_vec[i-1].size(), level_coeff.size());
             BOOST_REQUIRE_EQUAL_COLLECTIONS(coef_vec[i-1].begin(), coef_vec[i-1].end(), level_coeff.begin(), level_coeff.end());
         }
+    }
+}
+
+BOOST_AUTO_TEST_CASE(test_dwt_energy)
+{
+    auto input = get_test_signal();
+
+    {
+        auto signal = input;
+        int level = 1;
+        string wavelet_name = "db3";
+
+        auto e = dwt_energy(signal, wavelet_name, level, 1);
+		BOOST_REQUIRE_EQUAL(e, smfe::energy(dwt_detail_coeff(signal, wavelet_name, level, 1)));
+    }
+
+    {
+        auto signal = input;
+        int level = 1;
+        string wavelet_name = "db3";
+
+		dwt_length_vec length;
+        auto wavelet_signal = dwt(signal, wavelet_name, level, length);
+        BOOST_REQUIRE_EQUAL(dwt_energy(signal, wavelet_name, level, 1), dwt_energy(wavelet_signal, length, 1));
     }
 }
