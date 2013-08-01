@@ -167,4 +167,31 @@ smfe::value_t dwt_energy(const vec& wavelet_signal, const dwt_length_vec& length
 	return energy(coeff);
 }
 
+smfe::value_t dwt_rms(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)
+{
+    dwt_length_vec length;
+    auto wavelet_signal = dwt(time_signal, wavelet_name, wavelet_level, length);
+
+    return dwt_rms(wavelet_signal, length, detail_coeff_level);
+}
+
+smfe::value_t dwt_rms(const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_level)
+{
+	auto coeff = dwt_detail_coeff(wavelet_signal, length, detail_coeff_level);
+	return rms(coeff);
+}
+
+smfe::value_t dwt_normised_energy_using_signal_energy(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)
+{
+    dwt_length_vec length;
+    auto wavelet_signal = dwt(time_signal, wavelet_name, wavelet_level, length);
+
+    return dwt_normised_energy_using_signal_energy(energy(time_signal), wavelet_signal, length, detail_coeff_level);
+}
+
+smfe::value_t dwt_normised_energy_using_signal_energy(value_t time_signal_energy, const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_level)
+{
+	return dwt_energy(wavelet_signal, length, detail_coeff_level) / time_signal_energy;
+}
+
 }
