@@ -1,4 +1,5 @@
 #include "smfe/feature/wavelet_features.h"
+#include "smfe/feature/statistic_features.h"
 #include <wavelet2d.h>
 
 #include <boost/assert.hpp>
@@ -149,6 +150,21 @@ std::vector<vec> dwt_detail_coeff_of_range(const vec& wavelet_signal, const dwt_
     }
 
 	return res;
+}
+
+smfe::value_t dwt_energy(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)
+{
+    dwt_length_vec length;
+    auto wavelet_signal = dwt(time_signal, wavelet_name, wavelet_level, length);
+
+    return dwt_energy(wavelet_signal, length, detail_coeff_level);
+}
+
+smfe::value_t dwt_energy(const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_level)
+{
+	auto coeff = dwt_detail_coeff(wavelet_signal, length, detail_coeff_level);
+
+	return energy(coeff);
 }
 
 }

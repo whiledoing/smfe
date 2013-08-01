@@ -47,6 +47,9 @@ std::vector<vec> dwt_detail_coeff_of_range(const vec& time_signal,
         std::string wavelet_name, int wavelet_level, int detail_coeff_start_level, int detail_coeff_end_level);
 std::vector<vec> dwt_detail_coeff_of_range(const vec& wavelet_signal,
         const dwt_length_vec& length, int detail_coeff_start_level, int detail_coeff_end_level);
+
+value_t dwt_energy(const vec& time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level);
+value_t dwt_energy(const vec& wavelet_signal, const dwt_length_vec& length, int detail_coeff_level);
 }
 
 #endif // WAVELET_FEATURES_H__
