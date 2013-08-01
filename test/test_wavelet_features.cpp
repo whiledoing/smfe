@@ -141,11 +141,37 @@ BOOST_AUTO_TEST_CASE(test_idwt)
         for(int i = 0u; i < dwt_output.size(); ++i)
             BOOST_REQUIRE_CLOSE_FRACTION(signal[i], idwt_output[i], error);
     }
+}
 
-	mat m;
-	m.
-	vec a("1 2 3 4");
-	m[1] = a;
-	m[2] = a;
-	m[3] = a;
+
+BOOST_AUTO_TEST_CASE(test_range_detail_coeff)
+{
+    auto input = get_test_signal();
+
+    {
+        auto signal = input;
+        int level = 1;
+        string wavelet_name = "db3";
+
+		auto coef_vec = dwt_detail_coeff_of_range(signal, wavelet_name, level, 1, 2);
+		BOOST_REQUIRE_EQUAL(coef_vec.size(), 1);
+
+		auto level_coeff = dwt_detail_coeff(signal, wavelet_name, level, 1);	
+		BOOST_REQUIRE_EQUAL_COLLECTIONS(coef_vec[0].begin(), coef_vec[0].end(), level_coeff.begin(), level_coeff.end());
+    }
+
+    {
+        auto signal = input;
+        int level = 4;
+        string wavelet_name = "db1";
+
+        auto coef_vec = dwt_detail_coeff_of_range(signal, wavelet_name, level, 1, 4);
+        BOOST_REQUIRE_EQUAL(coef_vec.size(), 3);
+
+        for(int i = 1; i < 4; ++i) {
+            auto level_coeff = dwt_detail_coeff(signal, wavelet_name, level, i);	
+			BOOST_REQUIRE_EQUAL(coef_vec[i-1].size(), level_coeff.size());
+            BOOST_REQUIRE_EQUAL_COLLECTIONS(coef_vec[i-1].begin(), coef_vec[i-1].end(), level_coeff.begin(), level_coeff.end());
+        }
+    }
 }

@@ -132,16 +132,20 @@ std::vector<vec> dwt_detail_coeff_of_range(const vec& wavelet_signal, const dwt_
     check_signal_size_validation(wavelet_signal, length.size() - 1);
 
     if(detail_coeff_start_level < 1)
-        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_start_level must bigger than 1");
+        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_start_level must greater than 1");
 
-    if(detail_coeff_start_level >= length.size())
-        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_start_level must less equal than dwt level");
+    if(detail_coeff_end_level > length.size())
+        throw SMFEException("dwt_detail_coeff_of_range: detail_coeff_end_level must  less equal than dwt level");
 
 	std::vector<vec> res;
-    int end_index = wavelet_signal.size();
-    for(int i = detail_coeff_end_level-1; i >= detail_coeff_start_level; --i) {
-		res.push_back(make_sub_range(wavelet_signal, end_index-length[i], end_index));
-		end_index -= length[i];
+	int i = length.size() - 1;
+    int start_index = wavelet_signal.size();
+	for(int count = 0; count < detail_coeff_start_level; ++count, --i)
+		start_index -= length[i];
+
+    for(int count = 0; count < detail_coeff_end_level - detail_coeff_start_level; ++count, --i) {
+        res.push_back(make_sub_range(wavelet_signal, start_index, start_index + length[i+1]));
+		start_index -= length[i];
     }
 
 	return res;
