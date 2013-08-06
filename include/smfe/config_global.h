@@ -24,7 +24,7 @@ namespace smfe
 
 inline void throw_invalid_config(const std::string& err_str)
 {
-    BOOST_THROW_EXCEPTION(std::runtime_error(str(
+    BOOST_THROW_EXCEPTION(std::logic_error(str(
         boost::format("invalid config para : %1%") % err_str
         )));
 }

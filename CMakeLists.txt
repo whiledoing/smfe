@@ -51,13 +51,16 @@ set(WAVELET_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/wavelet2d")
 set(FFTW_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/fftw")
 include(support_fftw)
 
+# boost
 set(BOOST_DIR $ENV{BOOST_ROOT} CACHE PATH "boost root directory")
-option(Boost_USE_STATIC_LIBS "link with boost static library" ON)
+option(Boost_USE_STATIC_LIBS "link with boost static library" OFF)
 option(Boost_USE_MULTITHREADED "link with multithreaded library" ON)
 option(Boost_USE_STATIC_RUNTIME "link with static c runtime library" OFF)
 find_package(Boost REQUIRED COMPONENTS filesystem system unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
-add_definitions(-DBOOST_TEST_DYN_LINK)
+
+# disable all dynmaic link
+add_definitions(-DBoosT_TEST_DYN_LINK)
 
 ###############################################################################
 #
@@ -65,16 +68,24 @@ add_definitions(-DBOOST_TEST_DYN_LINK)
 #
 ###############################################################################
 
-foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
-    string(TOLOWER ${OUTPUTCONFIG} OUTPUTCONFIG_LOWER)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
-        "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG_LOWER}")
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
-        "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG_LOWER}")
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
-        "${CMAKE_SOURCE_DIR}/lib/${OUTPUTCONFIG_LOWER}")
-endforeach()
+if(CMAKE_BUILD_TYPE MATCHES "Debug")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/debug")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/debug")
+elseif(CMAKE_BUILD_TYPE MATCHES "Release")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/release")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/release")
+endif()
+
+if(MSVC)
+    foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
+        string(TOLOWER ${OUTPUTCONFIG} OUTPUTCONFIG_LOWER)
+        set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+            "${CMAKE_SOURCE_DIR}/lib/${OUTPUTCONFIG_LOWER}")
+        set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+            "${CMAKE_SOURCE_DIR}/lib/${OUTPUTCONFIG_LOWER}")
+    endforeach()
+endif()
 
 ###############################################################################
 #

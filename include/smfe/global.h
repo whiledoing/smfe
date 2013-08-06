@@ -62,10 +62,10 @@ typedef arma::Col<index_t> index_vec;   /** < 保存索引的数组 */
 typedef std::pair<index_t, index_t> index_pair_t;   /**< 保存一对索引区间的结构 */
 typedef std::vector<index_pair_t> index_pair_vec;   /**< 保存索引区间的向量结构 */
 
-class SMFEException : public std::exception
+class SMFEException : public std::logic_error
 {
 public:
-    SMFEException(const std::string& error) : std::exception(("[SMFE Error] " + error).c_str()) {}
+    SMFEException(const std::string& error) : std::logic_error(("[SMFE Error] " + error).c_str()) {}
 };
 
 /**

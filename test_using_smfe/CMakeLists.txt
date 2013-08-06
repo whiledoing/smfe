@@ -8,14 +8,19 @@ set(_target test_using_smfe_library)
 #   SMFE library
 #
 ###############################################################################
-
-# 设置smfe库所在的目录
-# note: 还需要设置好boost, smfe在寻找lib的时候需要使用到boost
-set(SMFE_DIR "F:/proj/sm-feature-extraction")
 list(APPEND CMAKE_MODULE_PATH ${SMFE_DIR})
+if(NOT SMFE_DIR)
+    message(FATAL_ERROR "please define SMFE_DIR variable into cmake")
+endif()
 include(support_smfe)
 
+###############################################################################
+#
+#   Test target 
+#
+###############################################################################
 add_executable(${_target} test.cpp)
 
-# 加入smfe库
+# need set SMFE_DIR and BOOST_DIR variable before adding smfe library,
+# otherwise, an error will occured
 support_smfe(${_target})
