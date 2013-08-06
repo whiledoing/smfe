@@ -55,7 +55,7 @@ struct FrequencyMagnitude {
     }
 
     friend std::ostream& operator<<(std::ostream& os, const FrequencyMagnitude& fm) {
-        os << "Frequency : " << fm.fre << "Magnitude : " << fm.mag << std::endl;
+        os << "Frequency : " << fm.fre << " Magnitude : " << fm.mag;
         return os;
     }
 };
@@ -95,7 +95,7 @@ fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs);
 *
 * @sa frequency_magnitude_vec
 */
-fm_vec sorted_frequency_magnitude_vec(const vec& spectrum, value_t fs);
+fm_vec sorted_frequency_magnitude_vec(const vec& source, value_t fs);
 fm_vec sorted_frequency_magnitude_vec(const cx_vec& spectrum, value_t fs);
 
 /**

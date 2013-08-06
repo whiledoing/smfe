@@ -52,7 +52,7 @@ fm_vec sorted_frequency_magnitude_vec(const vec& spectrum, value_t fs)
 	return sorted_frequency_magnitude_vec(fft(spectrum), fs);
 }
 
-value_t first_quater(const fm_vec& fm_vector)
+value_t first_quater_frequency(const fm_vec& fm_vector)
 {
 	return fm_vector[fm_vector.size()/4].fre;
 }

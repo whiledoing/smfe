@@ -11,8 +11,6 @@
 #include <iostream>
 using namespace std;
 
-#include <aquila/tools/TextPlot.h>
-
 namespace smfe
 {
 void check_signal_size_validation(const vec& data, int level)
