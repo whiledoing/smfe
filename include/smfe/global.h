@@ -172,7 +172,7 @@ inline void CHECK_VALUE_TYPE(const vec& c)
 4.  频域特征
 5.  时间-频率特征
 
-## 安装
+## 安装 && 编译
 
 本库依赖于下面几个第三方库:
 
@@ -209,6 +209,16 @@ inline void CHECK_VALUE_TYPE(const vec& c)
 1.  本库的基本类型定义在`include/smfe/global.h`文件中
 
 2.  可以参考`test`目录下的测试代码作为example
+
+## 使用本库
+
+1.  制定boost目录
+2.  制定`SMFE_DIR`变量指示`smfe library`所在的根目录, 其中`${SMFE_LIB}/include`保存了
+smfe的头文件, `${SMFE_LIB}/lib/debug(release)`保存了smfe编译好的lib或者.a文件.
+3.  将`SMFE_DIR`中的`support_smfe.cmake`加入到`CMAKE_MODULE_PATH`中
+4.  使用`support_smfe(${target})`命令在target工程中加入本库
+
+具体可以参考目录`test_using_smfe`中的示例性使用代码
 
 ## TODO
 
