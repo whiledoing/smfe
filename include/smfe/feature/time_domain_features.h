@@ -149,7 +149,7 @@ index_pair_vec effective_duration_index_pair_vec(const vec& c, int min_duration_
  *
  * @return 向量的幅值
  */
-inline value_t three_axis_amplitude(const vec& c);
+value_t three_axis_amplitude(const vec& c);
 
 /**
  * 得到矩阵中所有3d向量的幅值
