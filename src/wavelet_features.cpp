@@ -113,7 +113,8 @@ vec idwt(const vec& wavelet_signal, std::string wavelet_name, int wavelet_level,
 	check_signal_size_validation(wavelet_signal, wavelet_level);
 
 	vector<double> res;
-	::idwt(change_to_std_vector(wavelet_signal), const_cast<dwt_flag_vec&>(flag), wavelet_name, res, const_cast<dwt_length_vec&>(length));
+	vector<double> src = change_to_std_vector(wavelet_signal);
+	::idwt(src, const_cast<dwt_flag_vec&>(flag), wavelet_name, res, const_cast<dwt_length_vec&>(length));
 
 	return res;
 }
