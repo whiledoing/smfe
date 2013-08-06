@@ -62,6 +62,12 @@ include_directories(${Boost_INCLUDE_DIRS})
 # disable all auto link
 add_definitions(-DBOOST_ALL_NO_LIB)
 
+# in *nix system, you need to define BOOST_TEST_DYN_LINK
+# (http://abauchu.net/blog/post/2009/12/02/Unit-tests-with-BoostTest)
+if(UNIX)
+    add_definitions(-DBOOST_TEST_DYN_LINK)
+endif()
+
 ###############################################################################
 #
 #   Output Directory
