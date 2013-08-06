@@ -59,8 +59,8 @@ option(Boost_USE_STATIC_RUNTIME "link with static c runtime library" OFF)
 find_package(Boost REQUIRED COMPONENTS filesystem system unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
 
-# disable all dynmaic link
-add_definitions(-DBoosT_TEST_DYN_LINK)
+# disable all auto link
+add_definitions(-DBOOST_ALL_NO_LIB)
 
 ###############################################################################
 #
