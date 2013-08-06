@@ -57,6 +57,7 @@ option(Boost_USE_MULTITHREADED "link with multithreaded library" ON)
 option(Boost_USE_STATIC_RUNTIME "link with static c runtime library" OFF)
 find_package(Boost REQUIRED COMPONENTS filesystem system unit_test_framework)
 include_directories(${Boost_INCLUDE_DIRS})
+add_definitions(-DBOOST_TEST_DYN_LINK)
 
 ###############################################################################
 #
