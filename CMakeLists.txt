@@ -48,15 +48,19 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 ###############################################################################
 #
-#   Add Target
+#   Output Directory
 #
 ###############################################################################
 
 foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
-    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG}")
-    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG}")
-    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} "${CMAKE_SOURCE_DIR}/lib/${OUTPUTCONFIG}")
+    string(TOLOWER ${OUTPUTCONFIG} OUTPUTCONFIG_LOWER)
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+        "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG_LOWER}")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+        "${CMAKE_SOURCE_DIR}/bin/${OUTPUTCONFIG_LOWER}")
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER}
+        "${CMAKE_SOURCE_DIR}/lib/${OUTPUTCONFIG_LOWER}")
 endforeach()
 
 ###############################################################################
