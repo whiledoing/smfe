@@ -34,6 +34,11 @@ endif()
 #
 ###############################################################################
 
+# acmake
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/3rd/acmake)
+include(acmake_copy_dependencies)
+include(acmake_append_runtime_dirs)
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 # aqulia
@@ -61,6 +66,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 # disable all auto link
 add_definitions(-DBOOST_ALL_NO_LIB)
+
+if(NOT Boost_USE_STATIC_LIBS)
+    add_definitions(-DBOOST_ALL_DYN_LINK)
+endif()
 
 # in *nix system, you need to define BOOST_TEST_DYN_LINK
 # (http://abauchu.net/blog/post/2009/12/02/Unit-tests-with-BoostTest)

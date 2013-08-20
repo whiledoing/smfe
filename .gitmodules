@@ -1,0 +1,3 @@
+[submodule "3rd/acmake"]
+	path = 3rd/acmake
+	url = https://github.com/Answeror/ACMake.git

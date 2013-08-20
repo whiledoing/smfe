@@ -23,6 +23,25 @@ smfe (sensor motion features extroactor)
 
 ## 安装 && 编译
 
+Git clone之后, 调用下面命令编译和测试库(debug版本):
+
+    1. git submodule update --init --recursive
+    2. mkdir build.debug
+    3. cd build.debug
+    4. cmake .. -G"NMake Makefiles" -DBOOST_ROOT=/your/boost/root/path
+    5. nmake
+    6. ctest
+
+对于release版本, 2~4步改为:
+
+    2. mkdir build.release
+    3. cd build.release
+    4. cmake .. -G"NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DBOOST_ROOT=/your/boost/root/path
+
+Linux上将"NMake Makefiles"和nmake改为对应的工具链即可.
+
+## 关于第三方库的说明
+
 本库依赖于下面几个第三方库:
 
 1.  [boost](http://www.boost.org/) 主要几个子模块为 `unit_test filesystem property_tree accumulators`
@@ -41,17 +60,6 @@ smfe (sensor motion features extroactor)
 `wavelet1d`使用直接包含源码的方式加入到smfe_lib中.
 
 `fftw`已经将编译好的(visual C++ 2012)放置在`3rd/fftw`中, 如果自己需要重新编译, 参考`3rd/fftw/README.md`
-
-`boost`查找有两个办法:
-
-1.  设置`BOOST_ROOT`环境变量
-2.  或者在调用cmake的时候设置`BOOST_DIR`的数值,比如`cmake ..  -BOOST_DIR="F/lib/boost/"`
-
-配置好第三方库之后,调用下面命令编译本库:
-
-    1.  mkdir build
-    2.  cd build && cmake ..
-    3.  make 或者 nmake
 
 ## 说明
 
