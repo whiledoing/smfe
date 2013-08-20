@@ -14,4 +14,6 @@ macro(support_fftw target)
     set(_libs ${_fftw_lib} ${_fftwf_lib})
     target_link_libraries(${target} ${_libs})
 
+    acmake_append_runtime_dirs(${target} ${FFTW_DIR}/bin)
+
 endmacro()

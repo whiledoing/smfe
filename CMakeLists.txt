@@ -34,6 +34,11 @@ endif()
 #
 ###############################################################################
 
+# acmake
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/3rd/acmake)
+include(acmake_copy_dependencies)
+include(acmake_append_runtime_dirs)
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
 
 # aqulia
