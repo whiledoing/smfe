@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: test_sensor_features.cpp</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>首页</span></a></li>
+      <li><a href="../../modules.html"><span>模块</span></a></li>
+      <li><a href="../../namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="../../annotated.html"><span>类</span></a></li>
+      <li><a href="../../files.html"><span>文件</span></a></li>
+      <li><a href="../../examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">test_sensor_features.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<p>An example for using mean_filter</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;boost/test/unit_test.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;boost/assign/std/vector.hpp&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../df/d5c/sensor__features_8h.html" title="和运动信号相关的特征">smfe/feature/sensor_features.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d8/da5/mean__filter_8h.html" title="均值滤波">smfe/feature/mean_filter.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d92/statistic__features_8h.html" title="计算统计特征">smfe/feature/statistic_features.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../db/dce/integral__calculus_8h.html">smfe/feature/integral_calculus.h</a>&gt;</span></div>
+<div class="line"><span class="keyword">using namespace </span>smfe;</div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;numeric&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><span class="keyword">using namespace </span>std;</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">const</span> <span class="keyword">static</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> error = 1e-7;</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_mean_filter)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">int</span> size = 10;</div>
+<div class="line">    vector&lt;value_t&gt; test_data(size);</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> gene_scale = 5.0;</div>
+<div class="line">    <span class="keyword">auto</span> gene_fun = [gene_scale]() {</div>
+<div class="line">        <span class="keywordflow">return</span> ((<a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>)rand()/RAND_MAX)*gene_scale;</div>
+<div class="line">    };</div>
+<div class="line">    generate_n(test_data.begin(), size, gene_fun);</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">auto</span> data = <a name="a0"></a><a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(test_data);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordtype">int</span> filter_size = 2;</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> result = <a name="a1"></a><a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, 0);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a name="a2"></a><a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, filter_size+1)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, 1);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, filter_size+2)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, 2);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, filter_size+3)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, 5);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 5-filter_size, 6+filter_size)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, size-1-filter_size);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, size-1-2*filter_size, size)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, size-filter_size);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, size-2*filter_size, size)), error);</div>
+<div class="line">    }</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">smfe::mean_filter_get_one_index</a>(data, filter_size, size+1-filter_size);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(result, smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, size+1-2*filter_size, size)), error);</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="comment">// test smfe::mean_filter_get_range</span></div>
+<div class="line">    <span class="keyword">auto</span> result = <a name="a3"></a><a class="code" href="../../d2/dff/namespacesmfe_af18060b8c6de1473c86f728c43643b22.html#af18060b8c6de1473c86f728c43643b22" title="计算一段区间内的滤波结果">smfe::mean_filter_get_range</a>(data, filter_size, 0, data.size());</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(result[0], smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, 1+filter_size)), error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(result[1], smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, 2+filter_size)), error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(result[2], smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 0, 3+filter_size)), error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(result[4], smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, 4-filter_size, 5+filter_size)), error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(result[size-filter_size], smfe::mean(<a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(data, size-2*filter_size, size)), error);</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordtype">int</span> filter_size = 0;</div>
+<div class="line">        <span class="keyword">auto</span> result = <a class="code" href="../../d2/dff/namespacesmfe_af18060b8c6de1473c86f728c43643b22.html#af18060b8c6de1473c86f728c43643b22" title="计算一段区间内的滤波结果">smfe::mean_filter_get_range</a>(data, filter_size, 0, data.size());</div>
+<div class="line">        BOOST_REQUIRE(equal(data.begin(), data.end(), result.begin()));</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_velocity)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">using namespace </span>boost::assign;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;value_t&gt; stdvec;</div>
+<div class="line">    stdvec += 1, -2, 6, 7, 3, 10, 21, 15, -5, 2;</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        std::vector&lt;value_t&gt; stdres;</div>
+<div class="line">        stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;</div>
+<div class="line">        partial_sum(stdres.begin(), stdres.end(), stdres.begin());</div>
+<div class="line"></div>
+<div class="line">        <span class="keyword">auto</span> res = <a name="a4"></a><a class="code" href="../../d7/d5c/group__sensorfeatures_ga4bd254a2cddc7f3bc6c234043bde282f.html#ga4bd254a2cddc7f3bc6c234043bde282f" title="计算一定时间运动的速度">velocity</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(stdvec));</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());</div>
+<div class="line">        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        std::vector&lt;value_t&gt; stdres;</div>
+<div class="line">        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;</div>
+<div class="line">        partial_sum(stdres.begin(), stdres.end(), stdres.begin());</div>
+<div class="line"></div>
+<div class="line">        <span class="keyword">auto</span> res = <a class="code" href="../../d7/d5c/group__sensorfeatures_ga4bd254a2cddc7f3bc6c234043bde282f.html#ga4bd254a2cddc7f3bc6c234043bde282f" title="计算一定时间运动的速度">velocity</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(stdvec), 1.0, 0.0, 3.0);</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());</div>
+<div class="line">        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        std::vector&lt;value_t&gt; stdres;</div>
+<div class="line">        stdres += 0.0, 0.0, 3, 6.5, 5, 6.5, 15.5, 18, 5, -2.5;</div>
+<div class="line">        partial_sum(stdres.begin(), stdres.end(), stdres.begin());</div>
+<div class="line"></div>
+<div class="line">        <span class="keyword">auto</span> res = <a class="code" href="../../d7/d5c/group__sensorfeatures_ga4bd254a2cddc7f3bc6c234043bde282f.html#ga4bd254a2cddc7f3bc6c234043bde282f" title="计算一定时间运动的速度">velocity</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(stdvec), 1.0, 0.0, 3.0);</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());</div>
+<div class="line">        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        std::vector&lt;value_t&gt; stdres;</div>
+<div class="line">        stdres += 0.0, 0.0, 0.0, 3.5, 7, 12, 27.5, 45.5, 53, 0.0;</div>
+<div class="line"></div>
+<div class="line">        <span class="keyword">auto</span> res = <a class="code" href="../../d7/d5c/group__sensorfeatures_ga4bd254a2cddc7f3bc6c234043bde282f.html#ga4bd254a2cddc7f3bc6c234043bde282f" title="计算一定时间运动的速度">velocity</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(stdvec), 1.0, 0.0, 7.0, 1);</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());</div>
+<div class="line">        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_distance)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">using namespace </span>boost::assign;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;value_t&gt; stdvec;</div>
+<div class="line">    stdvec += 1, -2, 6, 7, 3, 10, 21, 15, -5, 2;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;value_t&gt; stdres;</div>
+<div class="line">    stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;</div>
+<div class="line">    partial_sum(stdres.begin(), stdres.end(), stdres.begin());</div>
+<div class="line"></div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">auto</span> vel_vec = <a class="code" href="../../d7/d5c/group__sensorfeatures_ga4bd254a2cddc7f3bc6c234043bde282f.html#ga4bd254a2cddc7f3bc6c234043bde282f" title="计算一定时间运动的速度">velocity</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(stdvec));</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(<a name="a5"></a><a class="code" href="../../d7/d5c/group__sensorfeatures_gaa33fcf9255e0eb20fdd9bd119aa3607b.html#gaa33fcf9255e0eb20fdd9bd119aa3607b" title="计算短时间内(2s)内运动传感器移动的位移(也可以理解为角度,如果使用角速度作为输入参数的话)">distance</a>(vel_vec, 2.0, 3), 2.0 * <a name="a6"></a><a class="code" href="../../d2/dff/namespacesmfe_a7c767f92bdfc2cc8f8ff86c65e2255a3.html#a7c767f92bdfc2cc8f8ff86c65e2255a3" title="计算离散数据的积分">integration</a>(stdres, 3), error);</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>

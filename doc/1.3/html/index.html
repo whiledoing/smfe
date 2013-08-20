@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: sensor motion feature extractor</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li class="current"><a href="index.html"><span>首页</span></a></li>
+      <li><a href="modules.html"><span>模块</span></a></li>
+      <li><a href="namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="annotated.html"><span>类</span></a></li>
+      <li><a href="files.html"><span>文件</span></a></li>
+      <li><a href="examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">sensor motion feature extractor </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><h2>Introduction</h2>
+<p>该计算库主要用来提取运动传感器信号的特征.</p>
+<p>一个典型的运动传感器包含三个主要部分:</p>
+<ol type="1">
+<li>加速度传感器</li>
+<li>磁通传感器</li>
+<li>陀螺仪传感器</li>
+</ol>
+<p>包含整个三个传感器的控制单元一般也被叫做IMU(inertia measurement unit)单元.</p>
+<p>计算的特征主要包含几个部分</p>
+<ol type="1">
+<li>运动传感基本特征(加速度,速度,位移,旋转角度,角速度等)</li>
+<li>统计特征</li>
+<li>时域特征</li>
+<li>频域特征</li>
+<li>时间-频率特征</li>
+</ol>
+<h2>安装 &amp;&amp; 编译</h2>
+<p>本库依赖于下面几个第三方库:</p>
+<ol type="1">
+<li><a href="http://www.boost.org/">boost</a> 主要几个子模块为 <code>unit_test filesystem property_tree accumulators</code></li>
+<li><a href="http://arma.sourceforge.net/">armadillo</a> 线性代数C++计算库</li>
+<li><a href="http://aquila-dsp.org/">aquila</a> 信号处理C++库</li>
+<li><a href="https://code.google.com/p/wavelet1d/">wavelet1d</a> 离散小波变换</li>
+<li><a href="http://www.fftw.org/">fftw</a> 傅里叶变换计算库</li>
+</ol>
+<p><code>armadillo</code>和<code>aquila</code>已经编译好(visual C++ 2012)放置在了<code>3rd</code>目录中,也可以自己编译将编译好的结果放置到<code>3rd</code>目录中即可</p>
+<p>需要注意的是,aquila编译好的library需要根据<code>BUILD_TYPE</code>放置不同的目录下(可以参考<code>cmake/modules/support_aquila.cmake</code>模块):</p>
+<ol type="1">
+<li>debug模式的lib: 放置在 <code>Debug/Aquila.lib</code></li>
+<li>relase模式的lib: 放置在 <code>Release/Aquila.lib</code></li>
+</ol>
+<p><code>wavelet1d</code>使用直接包含源码的方式加入到smfe_lib中.</p>
+<p><code>fftw</code>已经将编译好的(visual C++ 2012)放置在<code>3rd/fftw</code>中, 如果自己需要重新编译, 参考<code>3rd/fftw/README.md</code></p>
+<p><code>boost</code>查找有两个办法:</p>
+<ol type="1">
+<li>设置<code>BOOST_ROOT</code>环境变量</li>
+<li>或者在调用cmake的时候设置<code>BOOST_DIR</code>的数值,比如<code>cmake .. -BOOST_DIR="F/lib/boost/"</code></li>
+</ol>
+<p>配置好第三方库之后,调用下面命令编译本库: </p>
+<pre class="fragment">1.  mkdir build
+2.  cd build &amp;&amp; cmake ..
+3.  make 或者 nmake
+</pre><h2>说明</h2>
+<ol type="1">
+<li>本库的基本类型定义在<code><a class="el" href="d2/d49/global_8h.html" title="计算特征库的所有基本类型和所有基本方法">include/smfe/global.h</a></code>文件中</li>
+</ol>
+<ol type="1">
+<li>可以参考<code>test</code>目录下的测试代码作为example</li>
+</ol>
+<h2>使用本库</h2>
+<ol type="1">
+<li>制定boost目录</li>
+<li>制定<code>SMFE_DIR</code>变量指示<code>smfe library</code>所在的根目录, 其中<code>${SMFE_LIB}/include</code>保存了 smfe的头文件, <code>${SMFE_LIB}/lib/debug(release)</code>保存了smfe编译好的lib或者.a文件.</li>
+<li>将<code>SMFE_DIR</code>中的<code>support_smfe.cmake</code>加入到<code>CMAKE_MODULE_PATH</code>中</li>
+<li>使用<code>support_smfe(${target})</code>命令在target工程中加入本库</li>
+</ol>
+<p>具体可以参考目录<code>test_using_smfe</code>中的示例性使用代码</p>
+<h2>TODO</h2>
+<ol type="1">
+<li>将计算信号的特征变得完全可配置 </li>
+</ol>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>

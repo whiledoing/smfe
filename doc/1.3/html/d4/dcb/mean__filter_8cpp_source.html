@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: src/mean_filter.cpp 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>首页</span></a></li>
+      <li><a href="../../modules.html"><span>模块</span></a></li>
+      <li><a href="../../namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="../../annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="../../files.html"><span>文件</span></a></li>
+      <li><a href="../../examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>文件列表</span></a></li>
+      <li><a href="../../globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_35f38b3bf2db35fc24c33b6483dbd717.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">mean_filter.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d4/dcb/mean__filter_8cpp.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="../../d8/da5/mean__filter_8h.html" title="均值滤波">smfe/feature/mean_filter.h</a>&quot;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span>smfe</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e">    5</a></span>&#160;<a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">mean_filter_get_one_index</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; data, <span class="keywordtype">int</span> filter_size, <span class="keywordtype">int</span> index)</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    BOOST_ASSERT(index &lt; data.size());</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    BOOST_ASSERT(filter_size &gt;= 0);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordtype">int</span> low = index - filter_size;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">int</span> high = index + filter_size;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">if</span>(low &lt; 0) low = 0;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span>(high &gt; data.size() - 1)  high = data.size() - 1;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> sum = 0;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = low; i &lt;= high; ++i)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        sum += data[i];</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">return</span> (<a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>)(sum/(high-low+1));</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="code" href="../../d2/dff/namespacesmfe_af18060b8c6de1473c86f728c43643b22.html#af18060b8c6de1473c86f728c43643b22">   21</a></span>&#160;<a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d2/dff/namespacesmfe_af18060b8c6de1473c86f728c43643b22.html#af18060b8c6de1473c86f728c43643b22" title="计算一段区间内的滤波结果">mean_filter_get_range</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; data, <span class="keywordtype">int</span> filter_size, <span class="keywordtype">int</span> start_index, <span class="keywordtype">int</span> end_index)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    BOOST_ASSERT(start_index &lt; data.size());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    BOOST_ASSERT(end_index &lt;= data.size());</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    BOOST_ASSERT(start_index &lt;= end_index);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    BOOST_ASSERT(filter_size &gt;= 0);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> result(end_index - start_index);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = start_index; i != end_index; ++i) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        result[i-start_index] = <a class="code" href="../../d2/dff/namespacesmfe_a39deb75fb7bb7833e7de1865e792e91e.html#a39deb75fb7bb7833e7de1865e792e91e" title="计算数据特定index下的滤波结果">mean_filter_get_one_index</a>(data, filter_size, i);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>
