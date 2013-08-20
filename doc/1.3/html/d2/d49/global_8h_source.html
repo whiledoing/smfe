@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: include/smfe/global.h 源文件</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>首页</span></a></li>
+      <li><a href="../../modules.html"><span>模块</span></a></li>
+      <li><a href="../../namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="../../annotated.html"><span>类</span></a></li>
+      <li class="current"><a href="../../files.html"><span>文件</span></a></li>
+      <li><a href="../../examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="../../files.html"><span>文件列表</span></a></li>
+      <li><a href="../../globals.html"><span>文件成员</span></a></li>
+    </ul>
+  </div>
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_fc0a186c712af748aa85c4f05597d909.html">include</a></li><li class="navelem"><a class="el" href="../../dir_451a9baa47126199276a324161f2693d.html">smfe</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">global.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d2/d49/global_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef GLOBAL_H__</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="code" href="../../d2/d49/global_8h_ad396fb35a0fef922955d7741203fb0a0.html#ad396fb35a0fef922955d7741203fb0a0">   13</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define GLOBAL_H__</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#if defined (_WIN32) &amp;&amp; defined(BUILD_SHARED_LIBS)</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  if defined(SMFE_BUILD)</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define SMFE_EXPORT __declspec(dllexport)</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  else</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define SMFE_EXPORT  __declspec(dllimport)</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#  endif</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="code" href="../../d2/d49/global_8h_a6ddfcf20e6642a74e6adf344b61a99ce.html#a6ddfcf20e6642a74e6adf344b61a99ce">   22</a></span>&#160;<span class="preprocessor"></span><span class="preprocessor">#    define SMFE_EXPORT</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#include &lt;complex&gt;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;boost/assert.hpp&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;boost/static_assert.hpp&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;boost/type_traits/is_same.hpp&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;armadillo&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#pragma warning(disable:4215 4018)</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span>smfe</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">   49</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">double</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga4c118942edcb8a4149f323b15b7e8cec.html#ga4c118942edcb8a4149f323b15b7e8cec">   51</a></span>&#160;<span class="keyword">typedef</span> arma::Mat&lt;value_t&gt; <a class="code" href="../../d6/da4/group__global_ga4c118942edcb8a4149f323b15b7e8cec.html#ga4c118942edcb8a4149f323b15b7e8cec" title="保存二维数据的矩阵">mat</a>; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31">   52</a></span>&#160;<span class="keyword">typedef</span> arma::Col&lt;value_t&gt; <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gafcfb40eb9e8a8a8a93fb7e303eb9cd1a.html#gafcfb40eb9e8a8a8a93fb7e303eb9cd1a">   54</a></span>&#160;<span class="keyword">typedef</span> std::complex&lt;value_t&gt; <a class="code" href="../../d6/da4/group__global_gafcfb40eb9e8a8a8a93fb7e303eb9cd1a.html#gafcfb40eb9e8a8a8a93fb7e303eb9cd1a" title="复数类型">complex_t</a>; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gadb197101844d826172aca214cfe84bf9.html#gadb197101844d826172aca214cfe84bf9">   56</a></span>&#160;<span class="keyword">typedef</span> arma::Col&lt;complex_t&gt; <a class="code" href="../../d6/da4/group__global_gadb197101844d826172aca214cfe84bf9.html#gadb197101844d826172aca214cfe84bf9" title="保存二维复数的矩阵">cx_vec</a>;   </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga95763c9983fc8ced8a637db1e6964c21.html#ga95763c9983fc8ced8a637db1e6964c21">   57</a></span>&#160;<span class="keyword">typedef</span> arma::Mat&lt;complex_t&gt; <a class="code" href="../../d6/da4/group__global_ga95763c9983fc8ced8a637db1e6964c21.html#ga95763c9983fc8ced8a637db1e6964c21" title="保存一维复数的向量">cx_mat</a>;   </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga745f9940326303460dfa43f575c917c8.html#ga745f9940326303460dfa43f575c917c8">   59</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="../../d6/da4/group__global_ga745f9940326303460dfa43f575c917c8.html#ga745f9940326303460dfa43f575c917c8" title="索引的类型">index_t</a>;   </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga27d0195f7e3f79ee55be441938131879.html#ga27d0195f7e3f79ee55be441938131879">   60</a></span>&#160;<span class="keyword">typedef</span> arma::Col&lt;index_t&gt; <a class="code" href="../../d6/da4/group__global_ga27d0195f7e3f79ee55be441938131879.html#ga27d0195f7e3f79ee55be441938131879">index_vec</a>;   </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gab5c6d4cfc5d13a135bcd3c7f7aff680e.html#gab5c6d4cfc5d13a135bcd3c7f7aff680e">   62</a></span>&#160;<span class="keyword">typedef</span> std::pair&lt;index_t, index_t&gt; <a class="code" href="../../d6/da4/group__global_gab5c6d4cfc5d13a135bcd3c7f7aff680e.html#gab5c6d4cfc5d13a135bcd3c7f7aff680e" title="&lt; 保存索引的数组">index_pair_t</a>;   </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gaff282a99655353708389ecf7d3775e1d.html#gaff282a99655353708389ecf7d3775e1d">   63</a></span>&#160;<span class="keyword">typedef</span> std::vector&lt;index_pair_t&gt; <a class="code" href="../../d6/da4/group__global_gaff282a99655353708389ecf7d3775e1d.html#gaff282a99655353708389ecf7d3775e1d" title="保存索引区间的向量结构">index_pair_vec</a>;   </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="code" href="../../dd/da9/classsmfe_1_1_s_m_f_e_exception.html">   65</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../dd/da9/classsmfe_1_1_s_m_f_e_exception.html">SMFEException</a> : <span class="keyword">public</span> std::logic_error</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;{</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="code" href="../../dd/da9/classsmfe_1_1_s_m_f_e_exception_a5ab0f40c2794bb9fb4919e548e65eb4e.html#a5ab0f40c2794bb9fb4919e548e65eb4e">   68</a></span>&#160;    <a class="code" href="../../dd/da9/classsmfe_1_1_s_m_f_e_exception_a5ab0f40c2794bb9fb4919e548e65eb4e.html#a5ab0f40c2794bb9fb4919e548e65eb4e">SMFEException</a>(<span class="keyword">const</span> std::string&amp; error) : std::logic_error((<span class="stringliteral">&quot;[SMFE Error] &quot;</span> + error).c_str()) {}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927">   74</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>* beg, <span class="keywordtype">int</span> length)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    BOOST_ASSERT(length &gt;= 0);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>(beg, length);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga646062f5ac36c984ca16bb99f1361f38.html#ga646062f5ac36c984ca16bb99f1361f38">   80</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>* beg, <span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a>* end)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;{</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    BOOST_ASSERT(end-beg &gt;= 0);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(beg, end-beg);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga7117b387afbb3d8bdac25b45d2657d84.html#ga7117b387afbb3d8bdac25b45d2657d84">   86</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(<span class="keyword">const</span> std::vector&lt;value_t&gt;&amp; source)</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;{</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>(source);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga0a816e2d01361ee864f71f48777b2a4c.html#ga0a816e2d01361ee864f71f48777b2a4c">   91</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(std::vector&lt;value_t&gt;&amp;&amp; source)</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>(std::move(source));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gaa9d59b2e00fd28a30d7017299ad3e9cf.html#gaa9d59b2e00fd28a30d7017299ad3e9cf">   96</a></span>&#160;<span class="keyword">inline</span> <span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; source)</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> source;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga4288b6220b27517bc19f7ac0f126c028.html#ga4288b6220b27517bc19f7ac0f126c028">  101</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(<a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; source)</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">return</span> source;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga00115df0dd6d1e6d60b4c27a63c55c68.html#ga00115df0dd6d1e6d60b4c27a63c55c68">  109</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_ga00115df0dd6d1e6d60b4c27a63c55c68.html#ga00115df0dd6d1e6d60b4c27a63c55c68" title="make_abs是将一个向量转化为绝对值的向量">make_abs</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; source)</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> res(source.size());</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0u; i &lt; source.size(); ++i)</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        res[i] = abs(source[i]);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gaf8b25fb1fd18273ea11ff5605ea9fa5f.html#gaf8b25fb1fd18273ea11ff5605ea9fa5f">  117</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_ga00115df0dd6d1e6d60b4c27a63c55c68.html#ga00115df0dd6d1e6d60b4c27a63c55c68" title="make_abs是将一个向量转化为绝对值的向量">make_abs</a>(<a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; source)</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">size_t</span> i = 0u; i &lt; source.size(); ++i)</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        source[i] = abs(source[i]);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> source;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb">  129</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> <a class="code" href="../../d6/da4/group__global_ga1e10161442976ee8b8c434c85c1ba8fb.html#ga1e10161442976ee8b8c434c85c1ba8fb" title="make_sub_range将一个向量的区间数据提取出来">make_sub_range</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; data, <span class="keywordtype">int</span> beg, <span class="keywordtype">int</span> end)</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    BOOST_ASSERT(beg &gt;= 0 &amp;&amp; end &lt;= data.size() &amp;&amp; beg &lt;= end);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> res(end-beg);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; res.size(); ++i)</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        res[i] = data[beg+i];</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">return</span> res;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="code" href="../../d6/da4/group__global_gaaa675451cdac18774b9fe1fd172eb428.html#gaaa675451cdac18774b9fe1fd172eb428">  143</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="../../d6/da4/group__global_gaaa675451cdac18774b9fe1fd172eb428.html#gaaa675451cdac18774b9fe1fd172eb428" title="检查向量数据类型的辅助方法">CHECK_VALUE_TYPE</a>(<span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a>&amp; c)</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;{</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    BOOST_STATIC_ASSERT((boost::is_same&lt;typename vec::value_type, value_t&gt;::value));</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="preprocessor">#endif // GLOBAL_H__</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor"></span></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>

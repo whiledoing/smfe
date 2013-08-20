@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: wavelet-features</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>首页</span></a></li>
+      <li><a href="../../modules.html"><span>模块</span></a></li>
+      <li><a href="../../namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="../../annotated.html"><span>类</span></a></li>
+      <li><a href="../../files.html"><span>文件</span></a></li>
+      <li><a href="../../examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">wavelet-features</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>小波计算相关特征  
+<a href="#details">更多...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:ga0d67e1390dffa2032f49258360e1b8cb"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga0d67e1390dffa2032f49258360e1b8cb.html#ga0d67e1390dffa2032f49258360e1b8cb">smfe::dwt_length_vec</a></td></tr>
+<tr class="memdesc:ga0d67e1390dffa2032f49258360e1b8cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt 离散小波变换后保存各个层级小波数据长度的向量类型  <a href="#ga0d67e1390dffa2032f49258360e1b8cb"></a><br/></td></tr>
+<tr class="memitem:ga03e344c46deee167e4a9f45c2f0a960b"><td class="memItemLeft" align="right" valign="top">typedef std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga03e344c46deee167e4a9f45c2f0a960b.html#ga03e344c46deee167e4a9f45c2f0a960b">smfe::dwt_flag_vec</a></td></tr>
+<tr class="memdesc:ga03e344c46deee167e4a9f45c2f0a960b"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt 离散小波变换后保存相关计算信息的向量类型  <a href="#ga03e344c46deee167e4a9f45c2f0a960b"></a><br/></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:gac6c23f9dec5689f9a18989c6d4955418"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gac6c23f9dec5689f9a18989c6d4955418.html#gac6c23f9dec5689f9a18989c6d4955418">smfe::dwt</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level)</td></tr>
+<tr class="memdesc:gac6c23f9dec5689f9a18989c6d4955418"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt 离散小波变换  <a href="#gac6c23f9dec5689f9a18989c6d4955418"></a><br/></td></tr>
+<tr class="memitem:ga0d7fa885812dd61cdb62283eddae1b1d"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga0d7fa885812dd61cdb62283eddae1b1d.html#ga0d7fa885812dd61cdb62283eddae1b1d">smfe::dwt</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, dwt_length_vec &amp;length)</td></tr>
+<tr class="memdesc:ga0d7fa885812dd61cdb62283eddae1b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt 离散小波变换  <a href="#ga0d7fa885812dd61cdb62283eddae1b1d"></a><br/></td></tr>
+<tr class="memitem:ga75671a5762b74993e9df66d910d58ffe"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga75671a5762b74993e9df66d910d58ffe.html#ga75671a5762b74993e9df66d910d58ffe">smfe::dwt</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, dwt_length_vec &amp;length, dwt_flag_vec &amp;flag)</td></tr>
+<tr class="memdesc:ga75671a5762b74993e9df66d910d58ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt 离散小波变换  <a href="#ga75671a5762b74993e9df66d910d58ffe"></a><br/></td></tr>
+<tr class="memitem:ga5f66753a79565480e71d7ccbc5bfc143"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga5f66753a79565480e71d7ccbc5bfc143.html#ga5f66753a79565480e71d7ccbc5bfc143">smfe::idwt</a> (const vec &amp;wavelet_signal, std::string wavelet_name, int wavelet_level, const dwt_length_vec &amp;length, const dwt_flag_vec &amp;flag)</td></tr>
+<tr class="memdesc:ga5f66753a79565480e71d7ccbc5bfc143"><td class="mdescLeft">&#160;</td><td class="mdescRight">idwt 离散小波逆运算  <a href="#ga5f66753a79565480e71d7ccbc5bfc143"></a><br/></td></tr>
+<tr class="memitem:gad9dfa19e8831e8f29799ac0af4ac66f5"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gad9dfa19e8831e8f29799ac0af4ac66f5.html#gad9dfa19e8831e8f29799ac0af4ac66f5">smfe::dwt_approximation_coeff</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level)</td></tr>
+<tr class="memdesc:gad9dfa19e8831e8f29799ac0af4ac66f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_approximation_coeff 得到离散小波变换之后approximation系数  <a href="#gad9dfa19e8831e8f29799ac0af4ac66f5"></a><br/></td></tr>
+<tr class="memitem:ga622b5166c1689b9076775950748a9e20"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga622b5166c1689b9076775950748a9e20.html#ga622b5166c1689b9076775950748a9e20">smfe::dwt_approximation_coeff</a> (const vec &amp;wavelet_signal, const dwt_length_vec &amp;length)</td></tr>
+<tr class="memdesc:ga622b5166c1689b9076775950748a9e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_approximation_coeff 得到你算小波闭环之后approximation系数  <a href="#ga622b5166c1689b9076775950748a9e20"></a><br/></td></tr>
+<tr class="memitem:ga74fa0a1168f449c7155b6acac7f75a67"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga74fa0a1168f449c7155b6acac7f75a67.html#ga74fa0a1168f449c7155b6acac7f75a67">smfe::dwt_detail_coeff</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)</td></tr>
+<tr class="memdesc:ga74fa0a1168f449c7155b6acac7f75a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_detail_coeff 小波变化之后的detail系数  <a href="#ga74fa0a1168f449c7155b6acac7f75a67"></a><br/></td></tr>
+<tr class="memitem:ga229e3a1ed7db7c9e6e0d70f5f25bb481"><td class="memItemLeft" align="right" valign="top">vec&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga229e3a1ed7db7c9e6e0d70f5f25bb481.html#ga229e3a1ed7db7c9e6e0d70f5f25bb481">smfe::dwt_detail_coeff</a> (const vec &amp;wavelet_signal, const dwt_length_vec &amp;length, int detail_coeff_level)</td></tr>
+<tr class="memitem:gae24c400986aa111bc48399d4775b849a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; vec &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gae24c400986aa111bc48399d4775b849a.html#gae24c400986aa111bc48399d4775b849a">smfe::dwt_detail_coeff_of_range</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_start_level, int detail_coeff_end_level)</td></tr>
+<tr class="memdesc:gae24c400986aa111bc48399d4775b849a"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_detail_coeff_of_range 得到一段层级区域内的detail系数  <a href="#gae24c400986aa111bc48399d4775b849a"></a><br/></td></tr>
+<tr class="memitem:gaf91a718666e552dafcf826a239dbe8bd"><td class="memItemLeft" align="right" valign="top">std::vector&lt; vec &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gaf91a718666e552dafcf826a239dbe8bd.html#gaf91a718666e552dafcf826a239dbe8bd">smfe::dwt_detail_coeff_of_range</a> (const vec &amp;wavelet_signal, const dwt_length_vec &amp;length, int detail_coeff_start_level, int detail_coeff_end_level)</td></tr>
+<tr class="memitem:ga06277229717433dd69aed1377fb78ec7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga06277229717433dd69aed1377fb78ec7.html#ga06277229717433dd69aed1377fb78ec7">smfe::dwt_energy</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)</td></tr>
+<tr class="memdesc:ga06277229717433dd69aed1377fb78ec7"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_energy 小波变换detail系数的能量  <a href="#ga06277229717433dd69aed1377fb78ec7"></a><br/></td></tr>
+<tr class="memitem:ga8607d018d3d4bf8ab838b48807a688c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga8607d018d3d4bf8ab838b48807a688c9.html#ga8607d018d3d4bf8ab838b48807a688c9">smfe::dwt_energy</a> (const vec &amp;wavelet_signal, const dwt_length_vec &amp;length, int detail_coeff_level)</td></tr>
+<tr class="memitem:ga79467bed3f23ffe0fa4eec17f4639a08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga79467bed3f23ffe0fa4eec17f4639a08.html#ga79467bed3f23ffe0fa4eec17f4639a08">smfe::dwt_rms</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)</td></tr>
+<tr class="memdesc:ga79467bed3f23ffe0fa4eec17f4639a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_energy 小波变换detail系数的root mean square  <a href="#ga79467bed3f23ffe0fa4eec17f4639a08"></a><br/></td></tr>
+<tr class="memitem:gac6206d8b5f58331cd7b1e6f09f27223e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gac6206d8b5f58331cd7b1e6f09f27223e.html#gac6206d8b5f58331cd7b1e6f09f27223e">smfe::dwt_rms</a> (const vec &amp;wavelet_signal, const dwt_length_vec &amp;length, int detail_coeff_level)</td></tr>
+<tr class="memitem:ga50c48f6757d47895d17a849ccb942bbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_ga50c48f6757d47895d17a849ccb942bbf.html#ga50c48f6757d47895d17a849ccb942bbf">smfe::dwt_normised_energy_using_signal_energy</a> (const vec &amp;time_signal, std::string wavelet_name, int wavelet_level, int detail_coeff_level)</td></tr>
+<tr class="memdesc:ga50c48f6757d47895d17a849ccb942bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_normised_energy_using_signal_energy 使用原始信号的能量对小波变换的能量进行归一化处理  <a href="#ga50c48f6757d47895d17a849ccb942bbf"></a><br/></td></tr>
+<tr class="memitem:gac0f7a849c8f95f793d5c3a5e511d1126"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6">smfe::value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/da6/group__wavletfeatures_gac0f7a849c8f95f793d5c3a5e511d1126.html#gac0f7a849c8f95f793d5c3a5e511d1126">smfe::dwt_normised_energy_using_signal_energy</a> (value_t time_signal_energy, const vec &amp;wavelet_signal, const dwt_length_vec &amp;length, int detail_coeff_level)</td></tr>
+<tr class="memdesc:gac0f7a849c8f95f793d5c3a5e511d1126"><td class="mdescLeft">&#160;</td><td class="mdescRight">dwt_normised_energy_using_signal_energy 使用原始信号的能量对小波变换的能量进行归一化处理  <a href="#gac0f7a849c8f95f793d5c3a5e511d1126"></a><br/></td></tr>
+</table>
+<a name="details" id="details"></a><h2>详细描述</h2>
+<p>小波计算相关特征 </p>
+<p>主要使用到的第三方库为:</p>
+<ol type="1">
+<li><a href="https://code.google.com/p/wavelet1d/">wavelet1d</a></li>
+<li><a href="http://www.fftw.org/">fftw</a></li>
+</ol>
+<p>说明:</p>
+<ol type="1">
+<li>离散小波变换简称为dwt</li>
+<li>计算离散小波变换的过程中, 需要制定变换小波的类型, 经常使用的是haar 小波, 和<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E8%B4%9D%E8%A5%BF%E5%B0%8F%E6%B3%A2">Daubechies Wavelet</a>小波</li>
+<li>当前支持的小波类型名称有:</li>
+</ol>
+<p>haar, db1, db2, db3, db4, db5, db6, db7, db8, db9, db10, db11, db12, db13, db14, db15 bior1.1, bio1.3, bior1.5, bior2.2, bior2.4,bior2.6,bior2.8 bior3.1, bior3.3, bior3.5, bior3.7, bior3.9, bior4 bior5.5, bior6. coif1, coif2, coif3, coif4, coif5.</p>
+<p>db1表示一阶Daubechies Wavelet, db2表示二阶, etc...</p>
+<p>具体可以参考 <a href="http://code.google.com/p/wavelet1d/wiki/new1DDWTdemo">http://code.google.com/p/wavelet1d/wiki/new1DDWTdemo</a> </p>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>

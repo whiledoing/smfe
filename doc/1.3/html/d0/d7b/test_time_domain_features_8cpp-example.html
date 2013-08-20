@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<title>smfe: test_time_domain_features.cpp</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">smfe
+   &#160;<span id="projectnumber">1.3</span>
+   </div>
+   <div id="projectbrief">Sensor Motion Feature Extraction</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.8.1.2 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="../../index.html"><span>首页</span></a></li>
+      <li><a href="../../modules.html"><span>模块</span></a></li>
+      <li><a href="../../namespaces.html"><span>命名空间</span></a></li>
+      <li><a href="../../annotated.html"><span>类</span></a></li>
+      <li><a href="../../files.html"><span>文件</span></a></li>
+      <li><a href="../../examples.html"><span>示例</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">test_time_domain_features.cpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<p>This is test file of module <a class="el" href="../../d6/d8e/group__tdfeatures.html">time-domain-features</a></p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;boost/test/unit_test.hpp&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;boost/assign/std/vector.hpp&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d49/global_8h.html" title="计算特征库的所有基本类型和所有基本方法">smfe/global.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d5/deb/time__domain__features_8h.html" title="时间域特征计算函数">smfe/feature/time_domain_features.h</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="../../d2/d92/statistic__features_8h.html" title="计算统计特征">smfe/feature/statistic_features.h</a>&gt;</span></div>
+<div class="line"></div>
+<div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><span class="keyword">using namespace </span>std;</div>
+<div class="line"><span class="keyword">using namespace </span>smfe;</div>
+<div class="line"><span class="keyword">using namespace </span>boost::assign;</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> error = 1e-6;</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_statistics_feature)</div>
+<div class="line">{</div>
+<div class="line">    {</div>
+<div class="line">        <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> d[] = { 2, 7, 4, 9, 3};</div>
+<div class="line">        <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> data = <a name="a0"></a><a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(d, 5);</div>
+<div class="line"></div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(<a name="a1"></a><a class="code" href="../../d6/d8e/group__tdfeatures_gaff45b98ae01999cbe58825dab8972670.html#gaff45b98ae01999cbe58825dab8972670" title="Calculates skewness of the signal.">skewness</a>(data), 0.406040288214, error);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(<a name="a2"></a><a class="code" href="../../d6/d8e/group__tdfeatures_gad3937b01cbf96cb3e4143c2c9e84325f.html#gad3937b01cbf96cb3e4143c2c9e84325f" title="Calculates kurtosis of the signal.">kurtosis</a>(data), -1.39965397924, error);</div>
+<div class="line"></div>
+<div class="line">        BOOST_REQUIRE_EQUAL(<a name="a3"></a><a class="code" href="../../d6/d8e/group__tdfeatures_gabde5e58e42d63b905afd2693b6db1fcd.html#gabde5e58e42d63b905afd2693b6db1fcd" title="数据按照从小到大排列,3/4位置和1/4数值的差值">quartile_deviation</a>(data), 4);</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(<a name="a4"></a><a class="code" href="../../dd/d20/group__stfeatures_gacdbc6e9c3cda130f96a05f5879c44352.html#gacdbc6e9c3cda130f96a05f5879c44352" title="得到1/4小的元素">first_quater</a>(data), 3);</div>
+<div class="line">        BOOST_REQUIRE_EQUAL(<a name="a5"></a><a class="code" href="../../dd/d20/group__stfeatures_ga97d835e068d3a605ccf389f1c8800a5e.html#ga97d835e068d3a605ccf389f1c8800a5e" title="得到3/4小的元素">third_quater</a>(data), 7);</div>
+<div class="line"></div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(smfe::mean(data), 5.0, error);</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(<a name="a6"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga3a5b19bd60b8009fcc0f3787e76d824c.html#ga3a5b19bd60b8009fcc0f3787e76d824c" title="计算所有数据偏离绝对值均值的平均值">smfe::mean_absolute_deviation</a>(data), 2.4, error);</div>
+<div class="line"></div>
+<div class="line">        {</div>
+<div class="line">            std::vector&lt;value_t&gt; data;</div>
+<div class="line">            data += -2, -7, 4, -9, 3;</div>
+<div class="line">            BOOST_REQUIRE_CLOSE_FRACTION(<a name="a7"></a><a class="code" href="../../d6/d8e/group__tdfeatures_gac957eaac89b41409e4e5619910deea08.html#gac957eaac89b41409e4e5619910deea08" title="计算所有数据绝对值平均值">mean_absolute_value</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(data)), 5.0, error);</div>
+<div class="line">        }</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_peak_index)</div>
+<div class="line">{</div>
+<div class="line">    std::vector&lt;value_t&gt; data;</div>
+<div class="line">    data += 0.0, 0.0, -1.0, 1.0, 1.9, -2.3, 2.5, 2.7, 6.9, -10.0,</div>
+<div class="line">            7.1, 3.8, 2.3, 1.5, 1.3, 1.2, 1.4, 3.4, 1.5, 1.3, 1.2, 1.4, 0.0;</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">auto</span> result = <a name="a8"></a><a class="code" href="../../d6/d8e/group__tdfeatures_gac699b216fb0dfea9cb23362fd73ad299.html#gac699b216fb0dfea9cb23362fd73ad299" title="Get all the peak value in container.">peak_index</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(data));</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result.size(), 3);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[0], 9);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[1], 17);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[2], 21);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_zero_crossing)</div>
+<div class="line">{</div>
+<div class="line">    std::vector&lt;double&gt; data;</div>
+<div class="line">    data += -1.0, 2.0, -3.0, -4.0, -5.0;</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">auto</span> result = <a name="a9"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga7b4a7402f92d2156bf0d66ddbe7e7c8f.html#ga7b4a7402f92d2156bf0d66ddbe7e7c8f" title="Get all the zero-crossing values in the container c.">zero_crossing_index</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(data));</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result.size(), 2);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[0], 1);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[1], 2);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_cross_correlation)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> d[] = { 2, 7, 4, 9, 3};</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> data = <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(d, 5);</div>
+<div class="line"></div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a name="a10"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga509509dfa5ed7b0f7977284b77c7058f.html#ga509509dfa5ed7b0f7977284b77c7058f" title="计算两个输出数据的互相关系数 http://planetmath.org/Covariance">cross_correlation_coefficient</a>(data, data), 1.0, error);</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordtype">double</span> x[4] = {3 , 7 , 5 , 6 };</div>
+<div class="line">    <span class="keywordtype">double</span> y[4] = {4 , 3 , 7 , 1 };</div>
+<div class="line"></div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a class="code" href="../../d6/d8e/group__tdfeatures_ga509509dfa5ed7b0f7977284b77c7058f.html#ga509509dfa5ed7b0f7977284b77c7058f" title="计算两个输出数据的互相关系数 http://planetmath.org/Covariance">cross_correlation_coefficient</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(x, 4), <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(y, y+4)), -0.370842, error);</div>
+<div class="line"></div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_effective_duration)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keyword">using namespace </span>boost::assign;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;double&gt; effecitive_one;</div>
+<div class="line">    effecitive_one += 0.0, 0.0, -1.0, 1.0, 1.9, -2.3, 2.5, 2.7, 6.9, -10.0,</div>
+<div class="line">                      7.1, 3.8, 2.3, 1.5, 1.3, 1.2, 1.4, 3.4, 1.5, 1.3, 1.2, 1.4, 0.0;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;double&gt; effecitive_two;</div>
+<div class="line">    effecitive_two += 0.1, 2.3, 2.5, 2.7, 6.9, 7.0, 4.5, 4.6, 0.0, 0.0, 1.0,</div>
+<div class="line">                      1.0, 0.0, 0.0;</div>
+<div class="line"></div>
+<div class="line">    std::vector&lt;double&gt; data;</div>
+<div class="line">    data.insert(data.end(), effecitive_one.begin(), effecitive_one.end());</div>
+<div class="line">    data.insert(data.end(), effecitive_two.begin(), effecitive_two.end());</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">auto</span> result = <a name="a11"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga27979d81966cb6e02a8025960405ee86.html#ga27979d81966cb6e02a8025960405ee86" title="Get the efficient signal range.">effective_duration_index_pair_vec</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(data), 5);</div>
+<div class="line"></div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result.size(), 2);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[0].first, 5);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[0].second, 17);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[1].first, effecitive_one.size() + 1);</div>
+<div class="line">    BOOST_REQUIRE_EQUAL(result[1].second, effecitive_one.size() + 7);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_three_axis_amplitude)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">double</span> d[]  = {1,2,3};</div>
+<div class="line">    <span class="keywordtype">double</span> d2[] = {4,5,6};</div>
+<div class="line">    <span class="keywordtype">double</span> d3[] = {7,8,9};</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> data = <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(d, 3);</div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> data2 = <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(d2, 3);</div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> data3 = <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(d3, 3);</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga99406e0a5a4ed8710316cc82af0497c6.html#ga99406e0a5a4ed8710316cc82af0497c6" title="信号数据的基本类型">value_t</a> r[] = {sqrt(14), sqrt(77), sqrt(194)};</div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4820d678cfd60ae883fc1ec2d876ac31.html#ga4820d678cfd60ae883fc1ec2d876ac31" title="保存一维数据的向量">vec</a> res = <a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(r, 3);</div>
+<div class="line"></div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a name="a12"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga139f06df455945853f6f741fa55602d8.html#ga139f06df455945853f6f741fa55602d8" title="得到三轴向量的幅值">three_axis_amplitude</a>(data), res[0], error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a class="code" href="../../d6/d8e/group__tdfeatures_ga139f06df455945853f6f741fa55602d8.html#ga139f06df455945853f6f741fa55602d8" title="得到三轴向量的幅值">three_axis_amplitude</a>(data2), res[1], error);</div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a class="code" href="../../d6/d8e/group__tdfeatures_ga139f06df455945853f6f741fa55602d8.html#ga139f06df455945853f6f741fa55602d8" title="得到三轴向量的幅值">three_axis_amplitude</a>(data3), res[2], error);</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="../../d6/da4/group__global_ga4c118942edcb8a4149f323b15b7e8cec.html#ga4c118942edcb8a4149f323b15b7e8cec" title="保存二维数据的矩阵">mat</a> m;</div>
+<div class="line">    m.insert_cols(m.n_cols, data);</div>
+<div class="line">    m.insert_cols(m.n_cols, data2);</div>
+<div class="line">    m.insert_cols(m.n_cols, data3);</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">auto</span> three_vec = <a class="code" href="../../d6/d8e/group__tdfeatures_ga139f06df455945853f6f741fa55602d8.html#ga139f06df455945853f6f741fa55602d8" title="得到三轴向量的幅值">three_axis_amplitude</a>(m);</div>
+<div class="line">    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; 3; ++i)</div>
+<div class="line">        BOOST_REQUIRE_CLOSE_FRACTION(three_vec[i], res[i], error);</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line">BOOST_AUTO_TEST_CASE(test_sma)</div>
+<div class="line">{</div>
+<div class="line">    std::vector&lt;value_t&gt; data;</div>
+<div class="line">    data += -2, -7, 4, -9, 3;</div>
+<div class="line"></div>
+<div class="line">    BOOST_REQUIRE_CLOSE_FRACTION(<a name="a13"></a><a class="code" href="../../d6/d8e/group__tdfeatures_ga7a68e6bee51a662908ba6ba915cb1a08.html#ga7a68e6bee51a662908ba6ba915cb1a08" title="幅值面积(signal manitude area), 表示信号绝对值与x轴包围面积的大小">sma</a>(<a class="code" href="../../d6/da4/group__global_gaee6fdb27be0999555711185b0e5f9927.html#gaee6fdb27be0999555711185b0e5f9927" title="make_vec方法为建立vec数据结构的适配器方法">make_vec</a>(data)), 22.5, error);</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+生成于 2013年 八月 20日 星期二 19:38:08 , 为 smfe使用  &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="../../doxygen.png" alt="doxygen"/>
+</a> 1.8.1.2
+</small></address>
+</body>
+</html>
