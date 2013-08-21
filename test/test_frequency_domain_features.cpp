@@ -37,8 +37,6 @@ BOOST_AUTO_TEST_CASE(test_fft)
 	/* 加入直流分量 */
 	source += 12.3;
 
-	for(auto v : fm)
-		cout << v << endl;
 	/* 按照频率大小排序的频率-幅度特征 */
 	fm_vec unsorted_fm = frequency_magnitude_vec(source, sampleFreq);
 	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[0].fre, 0, error);

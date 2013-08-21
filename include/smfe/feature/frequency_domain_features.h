@@ -188,22 +188,22 @@ vec first_n_frequency(const fm_vec& fm_vector, int n);
 value_t frequency_energy(const fm_vec& fm_vector);
 
 /**
-* @brief 计算频率的信息熵
-*
-* 计算过程:
-*
-* 1.   将数据按照幅值的范围划分为 \c range_num 个区间
-* 2.   统计每一个幅值区间下频率的个数,除以总个数得到该区间概率pi
-* 3.   计算信息熵 = sum(pi * log(pi))
+* @brief fft分解后所有频率幅值的信息熵, 表示分解后信号幅值分布均匀程度 @sa entropy
 *
 * @param fm_vector 保存的<b>频率-幅值</b>向量
-* @param range_num 数据划分区间的大小
+* @param nbins 数据划分区间的大小
 *
-* @return 信息熵
-*
-* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是不要求有序 (当然有序更好)
 */
-value_t frequency_entropy(const fm_vec& fm_vector, int range_num = 8);
+value_t frequency_domain_entropy(const fm_vec& fm_vector, int nbins);
+
+/**
+* @brief fft分解后所有频率幅值的信息熵, 表示分解后信号幅值分布均匀程度 @sa entropy
+*
+* @param magnitude_vector 保存所有幅值的向量
+* @param nbins 数据划分区间的大小
+*/
+value_t frequency_domain_entropy(const vec& magnitude_vector, int nbins);
 
 /** @}*/
 }

@@ -29,17 +29,24 @@ BOOST_AUTO_TEST_CASE(test_common_func)
     vec data2("6 3 4 2 1 5");
     BOOST_REQUIRE_CLOSE_FRACTION(smfe::median(data2), 3.5, error);
 
-    value_t entropy_sum = 0;
-    for(int i = 0; i < data.size(); ++i) {
-        value_t p = data[i]/total_sum;
-        entropy_sum += p*log(p);
-    }
-
+  
     {
-        using namespace boost::assign;
-        std::vector<int> count_data;
-        count_data += 5, 1, 4, 3, 2;
-        BOOST_REQUIRE_CLOSE_FRACTION(entropy(count_data), -entropy_sum, error);
+		vec data("1 2 3 4 5 6");
+        BOOST_REQUIRE_CLOSE_FRACTION(entropy(data, 6), log(6)/log(2), error);
+
+        value_t d[] = {0, 0.3, 2.5, 0.5, 3, 1, 1.2, 2, 2.3, 2.4};
+		vec data2(d, 10);
+
+		std::vector<int> count;
+		count.push_back(3);
+		count.push_back(2);
+		count.push_back(5);
+		value_t sum = 0.0, p = 0.0;
+		for(int i = 0; i < 3; ++i) {
+			p = count[i] / 10.0;
+			sum += p*log(p)/log(2);
+		}
+        BOOST_REQUIRE_CLOSE_FRACTION(entropy(data2, 3), -sum, error);
     }
 
     BOOST_REQUIRE_CLOSE_FRACTION(energy(data), 55.0, error);

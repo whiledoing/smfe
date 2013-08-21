@@ -92,23 +92,9 @@ value_t frequency_energy(const fm_vec& fm_vector)
 	return energy(mags);
 }
 
-value_t frequency_entropy(const fm_vec& fm_vector, int range_num /*= 8*/)
+value_t frequency_domain_entropy(const fm_vec& fm_vector, int nbins)
 {
-	BOOST_ASSERT(range_num > 0 && range_num < fm_vector.size());
-
-	vector<int> count(range_num, 0);
-	value_t beg_mag = fm_vector.back().mag;
-	value_t dist = (fm_vector.front().mag - fm_vector.back().mag) / (value_t)(range_num);
-
-	int index = 0;
-	int size = fm_vector.size();
-	for(auto fm : fm_vector) {
-		index = static_cast<int>((fm.mag - beg_mag) / dist);
-		index = (index == range_num) ? index - 1 : index;
-		++count[index];
-	}
-
-	return entropy(count);
+	return entropy(fm_get_mag(fm_vector), nbins);
 }
 
 cx_vec smfe_fft(const vec& source)
@@ -140,6 +126,11 @@ vec fm_get_mag(const fm_vec& fm_vector)
 	for(int i = 0; i < fm_vector.size(); ++i)
 		res[i] = fm_vector[i].mag;
 	return res;
+}
+
+smfe::value_t frequency_domain_entropy(const vec& magnitude_vector, int nbins)
+{
+	return entropy(magnitude_vector, nbins);
 }
 
 }

@@ -96,37 +96,21 @@ inline value_t third_quater(const vec& data)
 value_t energy(const vec& source);
 
 /**
-* Calculates entropy of the signal
+* 计算信号的信息熵
 *
-* @note 输入容器中必须类型为 int 或者 unsigned int
+* 信息熵表示为信号的分布均匀程度, 如果信号的大小平均分布在不同的值域区间上, 熵越大.
+* 
+* 计算过程描述为:
+* 
+* 1. 得到信号source的最大值max和最小值min
+* 2. 将[min, max]区间分为nbins份, 统计落在其中的信号数目, 最后统计出各个区间上的概率p(i)
+* 3. 计算信息熵  = -1 * sum(p(i) * log2(p(i))
+* 
 * @param source signal source
+* @param nbins 信号按照幅值统计直方图的区域个数, 范围[1, +inf)
 * @return signal energy
 */
-template<typename ContainterType>
-value_t entropy(const ContainterType& source)
-{
-    BOOST_STATIC_ASSERT(
-        (boost::is_same<typename ContainterType::value_type, int>::value) ||
-        (boost::is_same<typename ContainterType::value_type, unsigned int>::value)
-    );
-
-    int total_size = 0;
-    for(auto ite = std::begin(source); ite != std::end(source); ++ite) {
-        BOOST_ASSERT(*ite >= 0);
-        total_size += *ite;
-    }
-    BOOST_ASSERT(total_size > 0);
-
-    value_t sum = 0.0;
-    value_t p = 0.0;
-    for(auto ite = std::begin(source); ite != std::end(source); ++ite) {
-        p = (value_t)(*ite) / total_size;
-        if(p != 0.0)
-            sum += p * log(p);
-    }
-
-    return -sum;
-}
+value_t entropy(const vec& source, int nbins);
 
 /**
  * Calculates power of the signal.
