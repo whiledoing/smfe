@@ -20,6 +20,10 @@ target_link_libraries(${_target} smfe_lib ${Boost_LIBRARIES})
 support_aquila(${_target})
 support_fftw(${_target})
 
+# copy dependencies
+acmake_append_runtime_dirs(${_target} ${Boost_LIBRARY_DIRS})
+acmake_copy_dependencies(${_target})
+
 add_test(
     NAME ${_target}
     COMMAND $<TARGET_FILE:${_target}>

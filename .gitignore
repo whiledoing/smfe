@@ -2,3 +2,5 @@ build*/
 doc/
 bin/
 lib/
+*.un~
+*.swp
