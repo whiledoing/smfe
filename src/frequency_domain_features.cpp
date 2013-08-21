@@ -105,4 +105,19 @@ value_t frequency_entropy(const fm_vec& fm_vector, int range_num /*= 8*/)
 	return entropy(count);
 }
 
+cx_vec smfe_fft(const vec& source)
+{
+    return arma::fft(source);
+}
+
+vec smfe_ifft(const cx_vec& source)
+{
+    auto cx_res =  cx_vec(arma::ifft(source));
+	vec res(cx_res.size());
+	for(int i = 0; i < res.size(); ++i)
+		res[i] = cx_res[i].real();
+
+	return res;
+}
+
 }

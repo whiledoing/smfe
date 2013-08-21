@@ -28,9 +28,6 @@ namespace smfe
 * @{
 */
 
-using arma::fft;
-using arma::ifft;
-
 /** 描述<b>频率-幅度</b>信息的数据结构 */
 struct FrequencyMagnitude {
     FrequencyMagnitude(value_t f = 0.0, value_t m = 0.0) : fre(f), mag(m) {}
@@ -66,7 +63,12 @@ typedef std::vector<FrequencyMagnitude> fm_vec;
 /**
  * 根据原始信号计算频谱
  */
-using arma::fft;
+cx_vec smfe_fft(const vec& source);
+
+/**
+ * 根据频谱计算计算原始信号
+ */
+vec smfe_ifft(const cx_vec& source);
 
 /**
 * @brief 根据原始信号得到<b>频率-幅值</b>信息
