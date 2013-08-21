@@ -21,11 +21,6 @@ namespace smfe
  *
  * 运动传感相关的特征
  *
- * 所有本模块中定义的容器类型 ContainterType 需要符合下面的条件:
- *
- * 1.   STL compatiable interface (begin end operator[] size etc..)
- * 2.   部分方法对容器中保存数据类型<b>Containtertype::value_type</b>限制为value_t*
- *
  * @{ */
 
 /**
@@ -44,9 +39,9 @@ namespace smfe
  * @param using_ave_filter 是否使用均值滤波对数据进行预处理
  * @param filter_size 均值滤波使用filter的大小. i帧的数据,使用[i-filter, i+filter_size]之间的数值进行平滑
  * 
- * @return velocity collection 
+ * @return 最后时刻的速度数值
  */
-vec velocity(const vec& acce_data, 
+value_t velocity(const vec& acce_data, 
 						value_t delta = 1.0,
                         value_t init_velocity = 0.0, 
                         value_t still_acce_threshold = 0.0, 
@@ -58,7 +53,7 @@ vec velocity(const vec& acce_data,
 /**
  * 计算短时间内(2s)内运动传感器移动的位移(也可以理解为角度,如果使用角速度作为输入参数的话)
  *
- * 输入数据必须是表示速度的数据
+ * 输入数据必须是表示加速度的数据
  * 
  * @note 
  * 1.	求解的数值没有量纲,每一个相邻数据之间的间隔被认为为delta的大小.比如
@@ -67,19 +62,23 @@ vec velocity(const vec& acce_data,
  * 
  * @sa integration
  * 
- * @param velocity_data 输入的速度数据
+ * @param acce_data 输入的加速度数据
  * @param delta 相邻数据之间间隔大小
- * @param degree 积分算法使用的degree数目
+ * @param init_velocity 初始时刻加速度
+ * @param still_acce_threshold 被认定为数值0的加速度阈值(比如0.5,就表示所有加速度数值绝对值小于0.5的都认为是静止状态)
  * @param using_ave_filter 是否使用均值滤波对数据进行预处理
  * @param filter_size 均值滤波使用filter的大小. i帧的数据,使用[i-filter, i+filter_size]之间的数值进行平滑
+ * @param degree 积分算法使用的degree数目
  * 
- * @return moving distance
+ * @return moving distance 
  */
-value_t distance(const vec& velocity_data, 
+value_t distance(const vec& acce_data, 
 				 value_t delta = 1.0,
-				 int degree = 3,
-				 bool using_ave_filter = false,
-				 int filter_size = 2
+                 value_t init_velocity = 0.0, 
+                 value_t still_acce_threshold = 0.0, 
+                 int station_count_threshold = INT_MAX,				 bool using_ave_filter = false,
+				 int filter_size = 2,
+				 int degree = 3
 );
 
 /**  @} */

@@ -16,14 +16,27 @@ inline bool is_zero(value_t value)
     return abs(value) < error;
 }
 
+inline value_t last_elem(const vec& d)
+{
+    return d[d.size()-1];
+}
+
 vec velocity_impl(const vec& acce_data,
                   value_t delta,
                   value_t still_acce_threshold,
                   int station_count_threshold,
-                  value_t init_velocity
+                  value_t init_velocity,
+                  bool using_ave_filter,
+                  int filter_size
                  )
 {
-    vec two_value_filtered_data = acce_data;
+    vec two_value_filtered_data;
+
+    // 是否进行均值滤波
+    if(using_ave_filter)
+        two_value_filtered_data = mean_filter(acce_data, filter_size);
+    else
+        two_value_filtered_data = acce_data;
 
     // 预处理，小于阈值的都认为是传感器静止状态下的数据
     for(int i = 0; i < two_value_filtered_data.size(); ++i) {
@@ -68,42 +81,33 @@ value_t distance_impl(const vec& velocity_data,
     return delta * integration(velocity_data, degree);
 }
 
-vec velocity(const vec& acce_data,
-             value_t delta,
-             value_t init_velocity,
-             value_t still_acce_threshold,
-             int station_count_threshold,
-             bool using_ave_filter,
-             int filter_size
-            )
-{
-    BOOST_ASSERT(filter_size >= 0);
-    BOOST_ASSERT(still_acce_threshold >= 0.0);
-    BOOST_ASSERT(station_count_threshold > 0);
-
-    // mean filter all the vector
-    if(using_ave_filter) {
-        auto after_mean = mean_filter(acce_data, filter_size);
-        return velocity_impl(after_mean, delta, still_acce_threshold, station_count_threshold, init_velocity);
-    }
-
-    return velocity_impl(acce_data, delta, still_acce_threshold, station_count_threshold, init_velocity);
-}
-
-value_t distance(const vec& velocity_data,
+value_t velocity(const vec& acce_data,
                  value_t delta,
-                 int degree,
+                 value_t init_velocity,
+                 value_t still_acce_threshold,
+                 int station_count_threshold,
                  bool using_ave_filter,
                  int filter_size
                 )
 {
     BOOST_ASSERT(filter_size >= 0);
+    BOOST_ASSERT(still_acce_threshold >= 0.0);
+    BOOST_ASSERT(station_count_threshold > 0);
 
-    if(using_ave_filter) {
-        auto after_mean = mean_filter(velocity_data, filter_size);
-        return distance_impl(after_mean, delta, degree);
-    }
+    return last_elem(
+               velocity_impl(acce_data, delta, still_acce_threshold, station_count_threshold,
+                             init_velocity, using_ave_filter, filter_size)
+           );
+}
 
+smfe::value_t distance(const vec& acce_data, value_t delta /*= 1.0*/, value_t init_velocity /*= 0.0*/,
+                       value_t still_acce_threshold /*= 0.0*/, int station_count_threshold /*= INT_MAX*/, 
+                       bool using_ave_filter /*= false*/, int filter_size /*= 2*/, int degree /*= 3 */)
+{
+    BOOST_ASSERT(filter_size >= 0);
+
+    auto velocity_data = velocity_impl(acce_data, delta, still_acce_threshold, station_count_threshold,
+                                       init_velocity, using_ave_filter, filter_size);
     return distance_impl(velocity_data, delta, degree);
 }
 

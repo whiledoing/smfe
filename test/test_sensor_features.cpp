@@ -84,8 +84,7 @@ BOOST_AUTO_TEST_CASE(test_velocity)
         partial_sum(stdres.begin(), stdres.end(), stdres.begin());
 
         auto res = velocity(make_vec(stdvec));
-        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
-        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+        BOOST_REQUIRE_EQUAL(res, stdres.back());
     }
 
     {
@@ -94,8 +93,7 @@ BOOST_AUTO_TEST_CASE(test_velocity)
         partial_sum(stdres.begin(), stdres.end(), stdres.begin());
 
         auto res = velocity(make_vec(stdvec), 1.0, 0.0, 3.0);
-        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
-        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+        BOOST_REQUIRE_EQUAL(res, stdres.back());
     }
 
     {
@@ -104,8 +102,7 @@ BOOST_AUTO_TEST_CASE(test_velocity)
         partial_sum(stdres.begin(), stdres.end(), stdres.begin());
 
         auto res = velocity(make_vec(stdvec), 1.0, 0.0, 3.0);
-        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
-        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+        BOOST_REQUIRE_EQUAL(res, stdres.back());
     }
 
     {
@@ -113,8 +110,7 @@ BOOST_AUTO_TEST_CASE(test_velocity)
         stdres += 0.0, 0.0, 0.0, 3.5, 7, 12, 27.5, 45.5, 53, 0.0;
 
         auto res = velocity(make_vec(stdvec), 1.0, 0.0, 7.0, 1);
-        BOOST_REQUIRE_EQUAL(res.size(), stdres.size());
-        BOOST_REQUIRE(equal(res.begin(), res.end(), stdres.begin()));
+        BOOST_REQUIRE_EQUAL(res, stdres.back());
     }
 }
 
@@ -126,11 +122,8 @@ BOOST_AUTO_TEST_CASE(test_distance)
     stdvec += 1, -2, 6, 7, 3, 10, 21, 15, -5, 2;
 
     std::vector<value_t> stdres;
-    stdres += 0.0, -0.5, 2, 6.5, 5, 6.5, 15.5, 18, 5, -1.5;
+    stdres += 0.0, -1.0, 4.0, 13.0, 10.0, 13.0, 31.0, 36.0, 10.0, -3.0;
     partial_sum(stdres.begin(), stdres.end(), stdres.begin());
 
-    {
-        auto vel_vec = velocity(make_vec(stdvec));
-        BOOST_REQUIRE_CLOSE_FRACTION(distance(vel_vec, 2.0, 3), 2.0 * integration(stdres, 3), error);
-    }
+	BOOST_REQUIRE_CLOSE_FRACTION(distance(make_vec(stdvec), 2.0), 2.0 * integration(stdres, 3), error);
 }
