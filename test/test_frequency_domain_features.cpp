@@ -15,38 +15,37 @@ using namespace smfe;
 
 BOOST_AUTO_TEST_CASE(test_fft)
 {
-    const std::size_t SIZE = 64;
-    const Aquila::FrequencyType sampleFreq = 4000;
-    const Aquila::FrequencyType f1 = 125, f2 = 700;
+    const std::size_t SIZE = 16;
+    const Aquila::FrequencyType sampleFreq = 1000;
+    const Aquila::FrequencyType f1 = 125, f2 = 250;
 
     Aquila::SineGenerator sineGenerator1 = Aquila::SineGenerator(sampleFreq);
     sineGenerator1.setAmplitude(32).setFrequency(f1).generate(SIZE);
     Aquila::SineGenerator sineGenerator2 = Aquila::SineGenerator(sampleFreq);
     sineGenerator2.setAmplitude(8).setFrequency(f2).setPhase(0.75).generate(SIZE);
     auto sum = sineGenerator1 + sineGenerator2;
-
-    // calculate the FFT using aquila
-    auto fft = Aquila::FftFactory::getFft(SIZE);
-    Aquila::SpectrumType spectrum = fft->fft(sum.toArray());
-
-    fm_vec aquila_fm(spectrum.size() / 2);
-    for(int i = 0u; i < spectrum.size()/2; ++i) {
-        aquila_fm[i] = FrequencyMagnitude(i*sampleFreq/SIZE, 2*abs(spectrum[i])/SIZE);
-    }
-	sort(aquila_fm.begin(), aquila_fm.end(), greater<FrequencyMagnitude>());
+	auto source = make_vec(sum.toArray(), sum.length());
 
 	// get frequency-magnitude vector using smfe library
-    fm_vec fm = sorted_frequency_magnitude_vec(make_vec(sum.toArray(), sum.length()), sampleFreq);
-
-	// check frequency_magnitue array is equal
-    BOOST_CHECK_EQUAL_COLLECTIONS(aquila_fm.begin(), aquila_fm.end(), fm.begin(), fm.end());
+    fm_vec fm = sorted_frequency_magnitude_vec(source, sampleFreq);
 
 	const static value_t error = 1e-6;
-
-	BOOST_REQUIRE_CLOSE_FRACTION(median_frequency(fm), 1000, error);
 	BOOST_REQUIRE_CLOSE_FRACTION(principal_frequency(fm), 125, error);
-	BOOST_REQUIRE_CLOSE_FRACTION(frequency_energy(fm), 1091.14, error);
-	BOOST_REQUIRE_CLOSE_FRACTION(frequency_entropy(fm), 0.27711335, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(fm[1].fre, 250.0, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(fm[1].mag, 8.0, error);
+
+	/* 加入直流分量 */
+	source += 12.3;
+
+	for(auto v : fm)
+		cout << v << endl;
+	/* 按照频率大小排序的频率-幅度特征 */
+	fm_vec unsorted_fm = frequency_magnitude_vec(source, sampleFreq);
+	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[0].fre, 0, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[0].mag, 12.3, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[1].fre, 62.5, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[2].fre, 125, error);
+	BOOST_REQUIRE_CLOSE_FRACTION(unsorted_fm[2].mag, 32, error);
 }
 
 BOOST_AUTO_TEST_CASE(test_ifft)

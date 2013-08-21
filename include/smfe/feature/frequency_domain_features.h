@@ -28,7 +28,39 @@ namespace smfe
 * @{
 */
 
-/** 描述<b>频率-幅度</b>信息的数据结构 */
+/** 描述<b>频率-幅度</b>信息的数据结构 
+
+使用 `frequency_magnitude_vec` 或者 `sorted_frequency_magnitude_vec` 得到信号的<b>频率-幅值</b>信息.
+
+频率-幅值对应了经过fft变换之后的所有频率(单位hz)和频率幅值的信息.
+
+考虑信号:
+
+	f(t) = 10 * f( 2*pi * 1000 * t) + 3 * f(2*pi * 2000 * t);
+
+如果使用fs = 6000来采样, 那么得到的频率幅值信息最大的两个就是:
+
+	1.  mag : 10  fre : 1000
+	2.  mag : 3   fre : 2000
+
+可以得到fm_vec的操作API:
+
+1.	`frequency_magnitude_vec` 接口得到的结果按照<b>频率从小到大顺序存放</b>
+2.	`sorted_frequency_magnitude_vec` 接口得到结果按照<b>幅值从大到小顺序存放</b>
+
+得到的fm_vec具有如下特点, 假设信号长度为n(n最好为2的倍数), 采样频率为 fs :
+
+1.	fm_vec的长度为<b>n/2 + 1</b>.
+2.	fm_vec中频率的最小值是0, 表示直流分量, 最大值为 `fs/2`, 每一个相邻频率的大小间隔为 `fs/size`, 这也就是为什么长度为<b>n/2 + 1</b>的原因.
+
+另外提供了从fm_vec中得到其对应频率和幅值分量的便捷访问API:
+
+1.	`fm_get_fre` 得到fm_vec中的频率分量
+2.	`fm_get_mag` 得到fm_vec中的幅值分量
+
+* 
+*/
+
 struct FrequencyMagnitude {
     FrequencyMagnitude(value_t f = 0.0, value_t m = 0.0) : fre(f), mag(m) {}
 
@@ -91,6 +123,16 @@ fm_vec frequency_magnitude_vec(const vec& source, value_t fs);
 fm_vec frequency_magnitude_vec(const cx_vec& spectrum, value_t fs);
 
 /**
+ *	得到当前<b>频率-幅值</b>向量中的频率分量, 并且pack为一个向量
+ */
+vec fm_get_fre(const fm_vec& fm_vector);
+
+/**
+ *	得到当前<b>频率-幅值</b>向量中的幅值分量, 并且pack为一个向量
+ */
+vec fm_get_mag(const fm_vec& fm_vector);
+
+/**
 * 得到排序后的<b>频率-幅值</b>向量
 *
 * @note 排序按照幅值从大到小的顺序排序
@@ -103,35 +145,35 @@ fm_vec sorted_frequency_magnitude_vec(const cx_vec& spectrum, value_t fs);
 /**
 * 得到最大幅值的频率
 *
-* @note 输入的<b>频率-幅值</b>向量是拍过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 value_t principal_frequency(const fm_vec& fm_vector);
 
 /**
 * 得到幅值中间大小频率
 *
-* @note 输入的<b>频率-幅值</b>向量是拍过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 value_t median_frequency(const fm_vec& fm_vector);
 
 /**
 * 得到1/4幅值大小频率
 *
-* @note 输入的<b>频率-幅值</b>向量是拍过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 value_t first_quater_frequency(const fm_vec& fm_vector);
 
 /**
 * 得到3/4幅值大小频率
 *
-* @note 输入的<b>频率-幅值</b>向量是拍过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 value_t third_quater_frequency(const fm_vec& fm_vector);
 
 /**
 * 得到前n个最大幅值的频率
 *
-* @note 输入的<b>频率-幅值</b>向量是拍过序的, @sa sorted_frequency_magnitude_vec
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 vec first_n_frequency(const fm_vec& fm_vector, int n);
 
@@ -158,6 +200,8 @@ value_t frequency_energy(const fm_vec& fm_vector);
 * @param range_num 数据划分区间的大小
 *
 * @return 信息熵
+*
+* @note 输入的<b>频率-幅值</b>向量是排过序的, @sa sorted_frequency_magnitude_vec
 */
 value_t frequency_entropy(const fm_vec& fm_vector, int range_num = 8);
 
