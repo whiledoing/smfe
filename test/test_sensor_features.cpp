@@ -132,33 +132,78 @@ BOOST_AUTO_TEST_CASE(test_distance)
 BOOST_AUTO_TEST_CASE(test_rotate_vector)
 {
     auto v = make_3dvec(10, 20, 30.33);
-    smfe_normalise_vec(v);
+    normalise_vec(v);
 
     {
         // 单位四元数
-        auto res = rotate_vector(smfe_identity_rot, v);
+        auto res = rotate_3dvec(identity_rot, v);
         check_vec_equal(res, v);
     }
 
     {
 		// x轴90度
-        auto unit_y = make_3dvec(0, 1, 0);
-		auto unit_x = make_3dvec(1, 0, 0);
-        auto rot_x_90 = make_rotate(0.5 * 3.1415926, unit_x);
-
-		auto res = rotate_vector(rot_x_90, unit_y);
+        auto rot_x_90 = make_rotate(0.5 * 3.1415926, x_unit_vec);
+		auto res = rotate_3dvec(rot_x_90, y_unit_vec);
 		check_vec_equal(res, make_3dvec(0.0, 0.0, 1.0));
     }
 
     {
 		// random rot and vec, result got frm ogre library
 		auto rot = make_rotate(10, 20, 30, 1.0);
-		smfe_normalise_vec(rot);
+		normalise_vec(rot);
 
 		auto vec = make_3dvec(3, 2, 1);
-		smfe_normalise_vec(vec);
+		normalise_vec(vec);
 
-		auto res = rotate_vector(rot, vec);
+		auto res = rotate_3dvec(rot, vec);
 		check_vec_equal(res, make_3dvec(0.342804, 0.861875, -0.373708));
 	}
+}
+
+BOOST_AUTO_TEST_CASE(test_pack_unpack)
+{
+	mat amg_mat;
+
+	auto a1 = make_3dvec(1, 2, 3);
+	auto a2 = make_3dvec(3, 4, 5);
+
+	auto m1 = make_3dvec(12, 40, 0.5);
+	auto m2 = make_3dvec(3, 0.4, 50);
+
+	auto g1 = make_3dvec(1.2, 4, 0.5);
+	auto g2 = make_3dvec(0.123, 4, 50);
+
+	normalise_vec(a1); normalise_vec(m1); normalise_vec(g1);
+	normalise_vec(a2); normalise_vec(m2); normalise_vec(g2);
+
+	// insert each frame into mat, each frame is nine element [a.x a.y a.z m.x, m.y, m.z g.x, g.y, g.z]
+	// note : key frame is a column in the amg_mat, so the num of cols is the number of total frames
+	amg_mat.insert_cols(amg_mat.n_cols, pack_amg_vec(a1, m1, g1));
+	amg_mat.insert_cols(amg_mat.n_cols, pack_amg_vec(a2, m2, g2));
+
+	// build two frame rotate quaternion
+	auto rot1 = make_rotate(1, 2, 3, 4); normalise_vec(rot1);
+	auto rot2 = make_rotate(2.0, 2.2, 3.3, 4.4); normalise_vec(rot2);
+	mat rot_mat;
+	rot_mat.insert_cols(rot_mat.n_cols, rot1);
+	rot_mat.insert_cols(rot_mat.n_cols, rot2);
+
+	// rotate the whole mat
+	auto rotated_amg_mat = rotate_amg_mat(rot_mat, amg_mat);
+
+	// rotate each 3dvec and pack them into a new mat
+	mat check_amg_mat;
+	check_amg_mat.insert_cols(check_amg_mat.n_cols, pack_amg_vec(rotate_3dvec(rot1, a1), rotate_3dvec(rot1, m1), rotate_3dvec(rot1, g1)));
+	check_amg_mat.insert_cols(check_amg_mat.n_cols, pack_amg_vec(rotate_3dvec(rot2, a2), rotate_3dvec(rot2, m2), rotate_3dvec(rot2, g2)));
+
+	// check pack and unpack
+	check_mat_equal(check_amg_mat, rotated_amg_mat);
+
+	// check mat pack and unpack
+	check_vec_equal(unpack_amg_mat(amg_mat, 0).col(0), a1);
+	check_vec_equal(unpack_amg_mat(amg_mat, 0).col(1), a2);
+	check_vec_equal(unpack_amg_mat(amg_mat, 1).col(0), m1);
+	check_vec_equal(unpack_amg_mat(amg_mat, 1).col(1), m2);
+	check_vec_equal(unpack_amg_mat(amg_mat, 2).col(0), g1);
+	check_vec_equal(unpack_amg_mat(amg_mat, 2).col(1), g2);
 }
