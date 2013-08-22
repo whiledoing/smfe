@@ -76,11 +76,49 @@ value_t distance(const vec& acce_data,
 				 value_t delta = 1.0,
                  value_t init_velocity = 0.0, 
                  value_t still_acce_threshold = 0.0, 
-                 int station_count_threshold = INT_MAX,				 bool using_ave_filter = false,
+                 int station_count_threshold = INT_MAX,
+				 bool using_ave_filter = false,
 				 int filter_size = 2,
 				 int degree = 3
 );
 
+inline vec make_rotate(value_t w, value_t x, value_t y, value_t z)
+{
+	vec res(4);
+	res[0] = w; res[1] = x; res[2] = y; res[3] = z;
+	return res;
+}
+
+inline vec make_3dvec(value_t x, value_t y, value_t z)
+{
+	vec res(3);
+	res[0] = x; res[1] = y; res[2] = z;
+	return res;
+}
+
+inline vec make_rotate(const value_t radian_angle, const vec& axis)
+{
+	// assert:  axis[] is unit length
+	//
+	// The quaternion representing the rotation is
+	//   q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k)
+
+	value_t fHalfAngle(0.5*radian_angle);
+	value_t fSin = sin(fHalfAngle);
+
+	value_t w,x,y,z;
+	w = cos(fHalfAngle);
+	x = fSin*axis[0];
+	y = fSin*axis[1];
+	z = fSin*axis[2];
+	return make_rotate(w, x, y, z);
+}
+
+void smfe_normalise_vec(vec& v);
+
+extern vec smfe_identity_rot; 
+
+vec rotate_vector(const vec& rot, const vec& v);
 /**  @} */
 }
 

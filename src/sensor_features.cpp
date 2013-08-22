@@ -1,6 +1,7 @@
 #include "smfe/feature/sensor_features.h"
 #include "smfe/feature/integral_calculus.h"
 #include "smfe/feature/mean_filter.h"
+#include "smfe/feature/statistic_features.h"
 #include <boost/assert.hpp>
 
 namespace smfe
@@ -100,7 +101,7 @@ value_t velocity(const vec& acce_data,
            );
 }
 
-smfe::value_t distance(const vec& acce_data, value_t delta /*= 1.0*/, value_t init_velocity /*= 0.0*/,
+value_t distance(const vec& acce_data, value_t delta /*= 1.0*/, value_t init_velocity /*= 0.0*/,
                        value_t still_acce_threshold /*= 0.0*/, int station_count_threshold /*= INT_MAX*/, 
                        bool using_ave_filter /*= false*/, int filter_size /*= 2*/, int degree /*= 3 */)
 {
@@ -111,4 +112,71 @@ smfe::value_t distance(const vec& acce_data, value_t delta /*= 1.0*/, value_t in
     return distance_impl(velocity_data, delta, degree);
 }
 
+vec smfe_identity_rot = make_rotate(1, 0, 0, 0);
+
+inline vec vec3d_cross_product(const vec& lhs, const vec& rhs)
+{
+	BOOST_ASSERT(lhs.size() == 3 && rhs.size() == 3);
+
+	vec res(3);
+	res[0] = lhs[1] * rhs[2] - lhs[2] * rhs[1];
+	res[1] = lhs[2] * rhs[0] - lhs[0] * rhs[2];
+	res[2] = lhs[0] * rhs[1] - lhs[1] * rhs[0];
+	return res;
+
+/* copy from orge :
+  
+	return Vector3(
+		y * rkVector.z - z * rkVector.y,
+		z * rkVector.x - x * rkVector.z,
+		x * rkVector.y - y * rkVector.x);
+*/
 }
+
+inline void vec3d_multiply(vec& v, value_t m)
+{
+	BOOST_ASSERT(v.size() == 3);
+	v[0] *= m;
+	v[1] *= m;
+	v[2] *= m;
+}
+
+vec rotate_vector(const vec& rot, const vec& v)
+{
+	BOOST_ASSERT(rot.size() == 4 && v.size() == 3);
+
+/*  copy form orge :
+   
+    Vector3 uv, uuv;
+    Vector3 qvec(x, y, z);
+    uv = qvec.crossProduct(v);
+    uuv = qvec.crossProduct(uv);
+    uv *= (2.0f * w);
+    uuv *= 2.0f;
+
+    return v + uv + uuv;
+*/
+
+    vec uv, uuv;
+    vec qvec(3);
+	value_t w = rot[0], x = rot[1], y = rot[2], z = rot[3];
+    qvec[0] = x; qvec[1] = y; qvec[2] = z;
+
+    uv = vec3d_cross_product(qvec, v);
+	uuv = vec3d_cross_product(qvec, uv);
+
+	vec3d_multiply(uv, 2.0 * w);
+	vec3d_multiply(uuv, 2.0);
+
+    return v + uv + uuv;
+}
+
+void smfe_normalise_vec(vec& v)
+{
+	value_t norm_len = norm(v);
+
+	for(int i = 0; i < v.size(); ++i)
+		v[i] /= norm_len;
+}
+
+} // namespace smfe

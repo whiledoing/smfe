@@ -11,6 +11,7 @@ using namespace smfe;
 #include <algorithm>
 using namespace std;
 
+#include "common_test.h"
 const static value_t error = 1e-7;
 
 BOOST_AUTO_TEST_CASE(test_mean_filter)
@@ -125,5 +126,39 @@ BOOST_AUTO_TEST_CASE(test_distance)
     stdres += 0.0, -1.0, 4.0, 13.0, 10.0, 13.0, 31.0, 36.0, 10.0, -3.0;
     partial_sum(stdres.begin(), stdres.end(), stdres.begin());
 
-	BOOST_REQUIRE_CLOSE_FRACTION(distance(make_vec(stdvec), 2.0), 2.0 * integration(stdres, 3), error);
+    BOOST_REQUIRE_CLOSE_FRACTION(distance(make_vec(stdvec), 2.0), 2.0 * integration(stdres, 3), error);
+}
+
+BOOST_AUTO_TEST_CASE(test_rotate_vector)
+{
+    auto v = make_3dvec(10, 20, 30.33);
+    smfe_normalise_vec(v);
+
+    {
+        // 单位四元数
+        auto res = rotate_vector(smfe_identity_rot, v);
+        check_vec_equal(res, v);
+    }
+
+    {
+		// x轴90度
+        auto unit_y = make_3dvec(0, 1, 0);
+		auto unit_x = make_3dvec(1, 0, 0);
+        auto rot_x_90 = make_rotate(0.5 * 3.1415926, unit_x);
+
+		auto res = rotate_vector(rot_x_90, unit_y);
+		check_vec_equal(res, make_3dvec(0.0, 0.0, 1.0));
+    }
+
+    {
+		// random rot and vec, result got frm ogre library
+		auto rot = make_rotate(10, 20, 30, 1.0);
+		smfe_normalise_vec(rot);
+
+		auto vec = make_3dvec(3, 2, 1);
+		smfe_normalise_vec(vec);
+
+		auto res = rotate_vector(rot, vec);
+		check_vec_equal(res, make_3dvec(0.342804, 0.861875, -0.373708));
+	}
 }
